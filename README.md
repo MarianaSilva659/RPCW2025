@@ -6,7 +6,7 @@
 
 **Sigla:** RPCW
 
-**Ano:** 2024
+**Ano:** 2025
 
 ## Aluno
 
@@ -14,6 +14,6 @@
 
 **ID:** pg55980
 
-Fotografia:** 
+Fotografia:
 
-![Fotografia do aluno](./foto.jpeg)
+![Fotografia do aluno](./foto.jpg)
