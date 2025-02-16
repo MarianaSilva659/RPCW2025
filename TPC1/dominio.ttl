@@ -1,113 +1,125 @@
-@prefix : <http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10/> .
+@prefix : <http://rpcw.di.uminho.pt/2025/EMD/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10/> .
+@base <http://rpcw.di.uminho.pt/2025/EMD/> .
 
-<http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10> rdf:type owl:Ontology .
+<http://rpcw.di.uminho.pt/2025/EMD> rdf:type owl:Ontology .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#frequentaModalidade
-:frequentaModalidade rdf:type owl:ObjectProperty ;
-                     rdfs:domain :Pessoa ;
-                     rdfs:range :Modalidade .
+###  http://rpcw.di.uminho.pt/2025/EMD#pratica
+:pratica rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éPraticadaPor ;
+         rdfs:domain :Pessoa ;
+         rdfs:range :Modalidade .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#temExame
-:temExame rdf:type owl:ObjectProperty ;
-          rdfs:domain :Pessoa ;
-          rdfs:range :Exame .
+###  http://rpcw.di.uminho.pt/2025/EMD#realiza
+:realiza rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éRealizadoPor ;
+         rdfs:domain :Pessoa ;
+         rdfs:range :Exame .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#relativoA
+:relativoA rdf:type owl:ObjectProperty ;
+           owl:inverseOf :temExame ;
+           rdfs:domain :Exame ;
+           rdfs:range :Modalidade .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#temAtleta
+:temAtleta rdf:type owl:ObjectProperty ;
+           owl:inverseOf :éAtletaDe .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#temExame
+:temExame rdf:type owl:ObjectProperty .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#temModalidade
+:temModalidade rdf:type owl:ObjectProperty ;
+               owl:inverseOf :éPraticadaEm ;
+               rdfs:domain :Clube ;
+               rdfs:range :Modalidade .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#éAtletaDe
+:éAtletaDe rdf:type owl:ObjectProperty ;
+           rdfs:domain :Pessoa ;
+           rdfs:range :Clube .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#éPraticadaEm
+:éPraticadaEm rdf:type owl:ObjectProperty .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#éPraticadaPor
+:éPraticadaPor rdf:type owl:ObjectProperty .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#éRealizadoPor
+:éRealizadoPor rdf:type owl:ObjectProperty .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#clube
-:clube rdf:type owl:DatatypeProperty ;
-       rdfs:domain :Modalidade ;
-       rdfs:range xsd:string .
+###  http://rpcw.di.uminho.pt/2025/EMD#dataEMD
+:dataEMD rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#dataEMD
-:dataEMD rdf:type owl:DatatypeProperty ;
-         rdfs:domain :Exame ;
-         rdfs:range xsd:string .
+###  http://rpcw.di.uminho.pt/2025/EMD#email
+:email rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#email
-:email rdf:type owl:DatatypeProperty ;
-       rdfs:domain :Pessoa ;
-       rdfs:range xsd:string .
+###  http://rpcw.di.uminho.pt/2025/EMD#género
+:género rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#federado
-:federado rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Pessoa ;
-          rdfs:range xsd:boolean .
+###  http://rpcw.di.uminho.pt/2025/EMD#idade
+:idade rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#género
-:género rdf:type owl:DatatypeProperty ;
-        rdfs:domain :Pessoa ;
-        rdfs:range xsd:string .
+###  http://rpcw.di.uminho.pt/2025/EMD#morada
+:morada rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#idade
-:idade rdf:type owl:DatatypeProperty ;
-       rdfs:domain :Pessoa ;
-       rdfs:range xsd:integer .
+###  http://rpcw.di.uminho.pt/2025/EMD#nome
+:nome rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#morada
-:morada rdf:type owl:DatatypeProperty ;
-        rdfs:domain :Pessoa ;
-        rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#nomeModalidade
-:nomeModalidade rdf:type owl:DatatypeProperty ;
-                rdfs:domain :Modalidade ;
-                rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#primeiroNome
-:primeiroNome rdf:type owl:DatatypeProperty ;
-              rdfs:domain :Pessoa ;
-              rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#resultado
-:resultado rdf:type owl:DatatypeProperty ;
-           rdfs:domain :Exame ;
-           rdfs:range xsd:boolean .
-
-
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#segundoNome
-:segundoNome rdf:type owl:DatatypeProperty ;
-             rdfs:domain :Pessoa ;
-             rdfs:range xsd:string .
+###  http://rpcw.di.uminho.pt/2025/EMD#resultado
+:resultado rdf:type owl:DatatypeProperty .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#Exame
+###  http://rpcw.di.uminho.pt/2025/EMD#Clube
+:Clube rdf:type owl:Class .
+
+
+###  http://rpcw.di.uminho.pt/2025/EMD#Exame
 :Exame rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#Modalidade
+###  http://rpcw.di.uminho.pt/2025/EMD#Modalidade
 :Modalidade rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/mariana/ontologies/2025/untitled-ontology-10#Pessoa
+###  http://rpcw.di.uminho.pt/2025/EMD#Pessoa
 :Pessoa rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
+#################################################################
+#    Individuals
+#################################################################
+
