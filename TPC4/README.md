@@ -1,6 +1,5 @@
 # TPC4
 
-
 - Harvestex sobre a DBpedia sobre o temas "Cinema"
 
 ```
