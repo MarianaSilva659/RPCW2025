@@ -1,0 +1,766 @@
+
+:Fungal_infection rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :itching, :dischromic__patches, :nodal_skin_eruptions, :skin_rash .
+        
+            :itching a :Symptom .
+            
+            :dischromic__patches a :Symptom .
+            
+            :nodal_skin_eruptions a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Allergy rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :shivering, :watering_from_eyes, :continuous_sneezing, :chills .
+        
+            :shivering a :Symptom .
+            
+            :watering_from_eyes a :Symptom .
+            
+            :continuous_sneezing a :Symptom .
+            
+            :chills a :Symptom .
+            
+:GERD rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :cough, :acidity, :chest_pain, :vomiting, :ulcers_on_tongue, :stomach_pain .
+        
+            :cough a :Symptom .
+            
+            :acidity a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :ulcers_on_tongue a :Symptom .
+            
+            :stomach_pain a :Symptom .
+            
+:Chronic_cholestasis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :loss_of_appetite, :itching, :abdominal_pain, :vomiting, :nausea, :yellowish_skin, :yellowing_of_eyes .
+        
+            :loss_of_appetite a :Symptom .
+            
+            :itching a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Drug_Reaction rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :burning_micturition, :spotting__urination, :stomach_pain, :itching, :skin_rash .
+        
+            :burning_micturition a :Symptom .
+            
+            :spotting__urination a :Symptom .
+            
+            :stomach_pain a :Symptom .
+            
+            :itching a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Peptic_ulcer_diseae rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :loss_of_appetite, :internal_itching, :passage_of_gases, :indigestion, :abdominal_pain, :vomiting .
+        
+            :loss_of_appetite a :Symptom .
+            
+            :internal_itching a :Symptom .
+            
+            :passage_of_gases a :Symptom .
+            
+            :indigestion a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+:AIDS rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :patches_in_throat, :high_fever, :muscle_wasting, :extra_marital_contacts .
+        
+            :patches_in_throat a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :muscle_wasting a :Symptom .
+            
+            :extra_marital_contacts a :Symptom .
+            
+:Diabetes rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :excessive_hunger, :weight_loss, :restlessness, :increased_appetite, :lethargy, :irregular_sugar_level, :polyuria, :obesity, :fatigue, :blurred_and_distorted_vision .
+        
+            :excessive_hunger a :Symptom .
+            
+            :weight_loss a :Symptom .
+            
+            :restlessness a :Symptom .
+            
+            :increased_appetite a :Symptom .
+            
+            :lethargy a :Symptom .
+            
+            :irregular_sugar_level a :Symptom .
+            
+            :polyuria a :Symptom .
+            
+            :obesity a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :blurred_and_distorted_vision a :Symptom .
+            
+:Gastroenteritis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :dehydration, :diarrhoea, :sunken_eyes, :vomiting .
+        
+            :dehydration a :Symptom .
+            
+            :diarrhoea a :Symptom .
+            
+            :sunken_eyes a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+:Bronchial_Asthma rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :cough, :mucoid_sputum, :high_fever, :family_history, :fatigue, :breathlessness .
+        
+            :cough a :Symptom .
+            
+            :mucoid_sputum a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :family_history a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :breathlessness a :Symptom .
+            
+:Hypertension rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :dizziness, :lack_of_concentration, :chest_pain, :headache, :loss_of_balance .
+        
+            :dizziness a :Symptom .
+            
+            :lack_of_concentration a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :loss_of_balance a :Symptom .
+            
+:Migraine rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :excessive_hunger, :irritability, :stiff_neck, :acidity, :depression, :indigestion, :headache, :visual_disturbances, :blurred_and_distorted_vision .
+        
+            :excessive_hunger a :Symptom .
+            
+            :irritability a :Symptom .
+            
+            :stiff_neck a :Symptom .
+            
+            :acidity a :Symptom .
+            
+            :depression a :Symptom .
+            
+            :indigestion a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :visual_disturbances a :Symptom .
+            
+            :blurred_and_distorted_vision a :Symptom .
+            
+:Cervical_spondylosis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :weakness_in_limbs, :dizziness, :neck_pain, :back_pain, :loss_of_balance .
+        
+            :weakness_in_limbs a :Symptom .
+            
+            :dizziness a :Symptom .
+            
+            :neck_pain a :Symptom .
+            
+            :back_pain a :Symptom .
+            
+            :loss_of_balance a :Symptom .
+            
+:Paralysis_brain_hemorrhage rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :altered_sensorium, :headache, :weakness_of_one_body_side, :vomiting .
+        
+            :altered_sensorium a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :weakness_of_one_body_side a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+:Jaundice rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :weight_loss, :high_fever, :dark_urine, :abdominal_pain, :vomiting, :fatigue, :itching, :yellowish_skin .
+        
+            :weight_loss a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :dark_urine a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :itching a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+:Malaria rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :chills, :muscle_pain, :high_fever, :headache, :vomiting, :sweating, :nausea, :diarrhoea .
+        
+            :chills a :Symptom .
+            
+            :muscle_pain a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :sweating a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :diarrhoea a :Symptom .
+            
+:Chicken_pox rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :loss_of_appetite, :high_fever, :mild_fever, :malaise, :swelled_lymph_nodes, :lethargy, :headache, :red_spots_over_body, :fatigue, :itching, :skin_rash .
+        
+            :loss_of_appetite a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :mild_fever a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :swelled_lymph_nodes a :Symptom .
+            
+            :lethargy a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :red_spots_over_body a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :itching a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Dengue rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :chills, :joint_pain, :pain_behind_the_eyes, :loss_of_appetite, :high_fever, :muscle_pain, :malaise, :back_pain, :headache, :red_spots_over_body, :vomiting, :fatigue, :nausea, :skin_rash .
+        
+            :chills a :Symptom .
+            
+            :joint_pain a :Symptom .
+            
+            :pain_behind_the_eyes a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :muscle_pain a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :back_pain a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :red_spots_over_body a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Typhoid rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :chills, :constipation, :high_fever, :toxic_look_typhos, :belly_pain, :headache, :abdominal_pain, :vomiting, :fatigue, :nausea, :diarrhoea .
+        
+            :chills a :Symptom .
+            
+            :constipation a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :toxic_look_typhos a :Symptom .
+            
+            :belly_pain a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :diarrhoea a :Symptom .
+            
+:hepatitis_A rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :muscle_pain, :joint_pain, :loss_of_appetite, :diarrhoea, :mild_fever, :dark_urine, :abdominal_pain, :vomiting, :nausea, :yellowish_skin, :yellowing_of_eyes .
+        
+            :muscle_pain a :Symptom .
+            
+            :joint_pain a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :diarrhoea a :Symptom .
+            
+            :mild_fever a :Symptom .
+            
+            :dark_urine a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Hepatitis_B rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :yellow_urine, :loss_of_appetite, :malaise, :dark_urine, :receiving_blood_transfusion, :lethargy, :receiving_unsterile_injections, :abdominal_pain, :fatigue, :itching, :yellowish_skin, :yellowing_of_eyes .
+        
+            :yellow_urine a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :dark_urine a :Symptom .
+            
+            :receiving_blood_transfusion a :Symptom .
+            
+            :lethargy a :Symptom .
+            
+            :receiving_unsterile_injections a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :itching a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Hepatitis_C rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :loss_of_appetite, :family_history, :fatigue, :nausea, :yellowish_skin, :yellowing_of_eyes .
+        
+            :loss_of_appetite a :Symptom .
+            
+            :family_history a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Hepatitis_D rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :joint_pain, :loss_of_appetite, :dark_urine, :abdominal_pain, :vomiting, :fatigue, :nausea, :yellowish_skin, :yellowing_of_eyes .
+        
+            :joint_pain a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :dark_urine a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Hepatitis_E rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :joint_pain, :loss_of_appetite, :high_fever, :coma, :dark_urine, :stomach_bleeding, :acute_liver_failure, :abdominal_pain, :vomiting, :fatigue, :nausea, :yellowish_skin, :yellowing_of_eyes .
+        
+            :joint_pain a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :coma a :Symptom .
+            
+            :dark_urine a :Symptom .
+            
+            :stomach_bleeding a :Symptom .
+            
+            :acute_liver_failure a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Alcoholic_hepatitis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :distention_of_abdomen, :swelling_of_stomach, :history_of_alcohol_consumption, :abdominal_pain, :vomiting, :yellowish_skin, :fluid_overload .
+        
+            :distention_of_abdomen a :Symptom .
+            
+            :swelling_of_stomach a :Symptom .
+            
+            :history_of_alcohol_consumption a :Symptom .
+            
+            :abdominal_pain a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :yellowish_skin a :Symptom .
+            
+            :fluid_overload a :Symptom .
+            
+:Tuberculosis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :cough, :weight_loss, :chills, :loss_of_appetite, :high_fever, :mild_fever, :malaise, :swelled_lymph_nodes, :phlegm, :chest_pain, :blood_in_sputum, :vomiting, :sweating, :fatigue, :breathlessness, :yellowing_of_eyes .
+        
+            :cough a :Symptom .
+            
+            :weight_loss a :Symptom .
+            
+            :chills a :Symptom .
+            
+            :loss_of_appetite a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :mild_fever a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :swelled_lymph_nodes a :Symptom .
+            
+            :phlegm a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :blood_in_sputum a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :sweating a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :breathlessness a :Symptom .
+            
+            :yellowing_of_eyes a :Symptom .
+            
+:Common_Cold rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :cough, :chills, :loss_of_smell, :redness_of_eyes, :malaise, :high_fever, :muscle_pain, :phlegm, :swelled_lymph_nodes, :runny_nose, :chest_pain, :headache, :congestion, :fatigue, :continuous_sneezing, :throat_irritation, :sinus_pressure .
+        
+            :cough a :Symptom .
+            
+            :chills a :Symptom .
+            
+            :loss_of_smell a :Symptom .
+            
+            :redness_of_eyes a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :muscle_pain a :Symptom .
+            
+            :phlegm a :Symptom .
+            
+            :swelled_lymph_nodes a :Symptom .
+            
+            :runny_nose a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :congestion a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :continuous_sneezing a :Symptom .
+            
+            :throat_irritation a :Symptom .
+            
+            :sinus_pressure a :Symptom .
+            
+:Pneumonia rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :cough, :chills, :fast_heart_rate, :malaise, :high_fever, :phlegm, :chest_pain, :rusty_sputum, :sweating, :fatigue, :breathlessness .
+        
+            :cough a :Symptom .
+            
+            :chills a :Symptom .
+            
+            :fast_heart_rate a :Symptom .
+            
+            :malaise a :Symptom .
+            
+            :high_fever a :Symptom .
+            
+            :phlegm a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :rusty_sputum a :Symptom .
+            
+            :sweating a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :breathlessness a :Symptom .
+            
+:Dimorphic_hemmorhoidspiles rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :irritation_in_anus, :pain_during_bowel_movements, :bloody_stool, :constipation, :pain_in_anal_region .
+        
+            :irritation_in_anus a :Symptom .
+            
+            :pain_during_bowel_movements a :Symptom .
+            
+            :bloody_stool a :Symptom .
+            
+            :constipation a :Symptom .
+            
+            :pain_in_anal_region a :Symptom .
+            
+:Heart_attack rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :sweating, :chest_pain, :breathlessness, :vomiting .
+        
+            :sweating a :Symptom .
+            
+            :chest_pain a :Symptom .
+            
+            :breathlessness a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+:Varicose_veins rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :swollen_blood_vessels, :cramps, :prominent_veins_on_calf, :obesity, :bruising, :fatigue, :swollen_legs .
+        
+            :swollen_blood_vessels a :Symptom .
+            
+            :cramps a :Symptom .
+            
+            :prominent_veins_on_calf a :Symptom .
+            
+            :obesity a :Symptom .
+            
+            :bruising a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :swollen_legs a :Symptom .
+            
+:Hypothyroidism rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :dizziness, :mood_swings, :cold_hands_and_feets, :brittle_nails, :irritability, :puffy_face_and_eyes, :abnormal_menstruation, :lethargy, :swollen_extremeties, :depression, :fatigue, :enlarged_thyroid, :weight_gain .
+        
+            :dizziness a :Symptom .
+            
+            :mood_swings a :Symptom .
+            
+            :cold_hands_and_feets a :Symptom .
+            
+            :brittle_nails a :Symptom .
+            
+            :irritability a :Symptom .
+            
+            :puffy_face_and_eyes a :Symptom .
+            
+            :abnormal_menstruation a :Symptom .
+            
+            :lethargy a :Symptom .
+            
+            :swollen_extremeties a :Symptom .
+            
+            :depression a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :enlarged_thyroid a :Symptom .
+            
+            :weight_gain a :Symptom .
+            
+:Hyperthyroidism rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :excessive_hunger, :mood_swings, :weight_loss, :fast_heart_rate, :irritability, :restlessness, :abnormal_menstruation, :muscle_weakness, :sweating, :fatigue, :diarrhoea .
+        
+            :excessive_hunger a :Symptom .
+            
+            :mood_swings a :Symptom .
+            
+            :weight_loss a :Symptom .
+            
+            :fast_heart_rate a :Symptom .
+            
+            :irritability a :Symptom .
+            
+            :restlessness a :Symptom .
+            
+            :abnormal_menstruation a :Symptom .
+            
+            :muscle_weakness a :Symptom .
+            
+            :sweating a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :diarrhoea a :Symptom .
+            
+:Hypoglycemia rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :excessive_hunger, :drying_and_tingling_lips, :slurred_speech, :irritability, :palpitations, :anxiety, :headache, :vomiting, :sweating, :fatigue, :nausea, :blurred_and_distorted_vision .
+        
+            :excessive_hunger a :Symptom .
+            
+            :drying_and_tingling_lips a :Symptom .
+            
+            :slurred_speech a :Symptom .
+            
+            :irritability a :Symptom .
+            
+            :palpitations a :Symptom .
+            
+            :anxiety a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :sweating a :Symptom .
+            
+            :fatigue a :Symptom .
+            
+            :nausea a :Symptom .
+            
+            :blurred_and_distorted_vision a :Symptom .
+            
+:Osteoarthristis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :joint_pain, :neck_pain, :knee_pain, :swelling_joints, :painful_walking, :hip_joint_pain .
+        
+            :joint_pain a :Symptom .
+            
+            :neck_pain a :Symptom .
+            
+            :knee_pain a :Symptom .
+            
+            :swelling_joints a :Symptom .
+            
+            :painful_walking a :Symptom .
+            
+            :hip_joint_pain a :Symptom .
+            
+:Arthritis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :stiff_neck, :muscle_weakness, :movement_stiffness, :swelling_joints, :painful_walking .
+        
+            :stiff_neck a :Symptom .
+            
+            :muscle_weakness a :Symptom .
+            
+            :movement_stiffness a :Symptom .
+            
+            :swelling_joints a :Symptom .
+            
+            :painful_walking a :Symptom .
+            
+:vertigo_Paroymsal__Positional_Vertigo rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :unsteadiness, :spinning_movements, :headache, :vomiting, :loss_of_balance, :nausea .
+        
+            :unsteadiness a :Symptom .
+            
+            :spinning_movements a :Symptom .
+            
+            :headache a :Symptom .
+            
+            :vomiting a :Symptom .
+            
+            :loss_of_balance a :Symptom .
+            
+            :nausea a :Symptom .
+            
+:Acne rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :blackheads, :pus_filled_pimples, :scurring, :skin_rash .
+        
+            :blackheads a :Symptom .
+            
+            :pus_filled_pimples a :Symptom .
+            
+            :scurring a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Urinary_tract_infection rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :bladder_discomfort, :burning_micturition, :foul_smell_of_urine, :continuous_feel_of_urine .
+        
+            :bladder_discomfort a :Symptom .
+            
+            :burning_micturition a :Symptom .
+            
+            :foul_smell_of_urine a :Symptom .
+            
+            :continuous_feel_of_urine a :Symptom .
+            
+:Psoriasis rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :skin_peeling, :silver_like_dusting, :small_dents_in_nails, :joint_pain, :inflammatory_nails, :skin_rash .
+        
+            :skin_peeling a :Symptom .
+            
+            :silver_like_dusting a :Symptom .
+            
+            :small_dents_in_nails a :Symptom .
+            
+            :joint_pain a :Symptom .
+            
+            :inflammatory_nails a :Symptom .
+            
+            :skin_rash a :Symptom .
+            
+:Impetigo rdf:type owl:NamedIndividual , :Disease ;
+    :hasSymptom :high_fever, :yellow_crust_ooze, :blister, :red_sore_around_nose, :skin_rash .
+        
+            :high_fever a :Symptom .
+            
+            :yellow_crust_ooze a :Symptom .
+            
+            :blister a :Symptom .
+            
+            :red_sore_around_nose a :Symptom .
+            
+            :skin_rash a :Symptom .
+            

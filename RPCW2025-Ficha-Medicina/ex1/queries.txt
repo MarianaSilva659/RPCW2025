@@ -1,0 +1,51 @@
+1.
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?class) AS ?numClasses) 
+WHERE { 
+    ?class a owl:Class.
+}
+
+
+2. 
+
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?property) AS ?numObjectProperties) 
+WHERE { 
+  ?property a owl:ObjectProperty .
+}
+
+
+3.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT (COUNT(DISTINCT ?individual) AS ?numIndividuals) 
+WHERE { 
+  ?individual a owl:NamedIndividual .
+}
+
+
+4.
+
+PREFIX : <http://rpcw/ontologies/2025/historia/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?individual ?tomate
+WHERE { 
+  ?individual a owl:NamedIndividual .
+  ?individual :cultiva :Tomates .
+}
+
+
+5.
+PREFIX : <http://rpcw/ontologies/2025/historia/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?individual
+WHERE { 
+  ?individual a owl:NamedIndividual .
+  ?individual :contrata ?trabalahdores .
+}
