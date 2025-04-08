@@ -1,0 +1,386 @@
+: rdf:type :Treatment .
+:Consult_nearest_hospital rdf:type :Treatment .
+:acetaminophen rdf:type :Treatment .
+:anti_itch_medicine rdf:type :Treatment .
+:antiboitic_therapy rdf:type :Treatment .
+:apply_calamine rdf:type :Treatment .
+:avoid_abrupt_head_movment rdf:type :Treatment .
+:avoid_cold_food rdf:type :Treatment .
+:avoid_fatty_spicy_food rdf:type :Treatment .
+:avoid_lying_down_after_eating rdf:type :Treatment .
+:avoid_non_veg_food rdf:type :Treatment .
+:avoid_oily_food rdf:type :Treatment .
+:avoid_open_cuts rdf:type :Treatment .
+:avoid_public_places rdf:type :Treatment .
+:avoid_sudden_change_in_body rdf:type :Treatment .
+:avoid_too_many_products rdf:type :Treatment .
+:bath_twice rdf:type :Treatment .
+:call_ambulance rdf:type :Treatment .
+:check_in_pulse rdf:type :Treatment .
+:chew_or_swallow_asprin rdf:type :Treatment .
+:cold_baths rdf:type :Treatment .
+:consult_doctor rdf:type :Treatment .
+:consult_nearest_hospital rdf:type :Treatment .
+:consume_alovera_juice rdf:type :Treatment .
+:consume_milk_thistle rdf:type :Treatment .
+:consume_neem_leaves rdf:type :Treatment .
+:consume_probiotic_food rdf:type :Treatment .
+:consume_witch_hazel rdf:type :Treatment .
+:cover_area_with_bandage rdf:type :Treatment .
+:cover_mouth rdf:type :Treatment .
+:dont_stand_still_for_long rdf:type :Treatment .
+:drink_cranberry_juice rdf:type :Treatment .
+:drink_papaya_leaf_juice rdf:type :Treatment .
+:drink_plenty_of_water rdf:type :Treatment .
+:drink_sugary_drinks rdf:type :Treatment .
+:drink_vitamin_c_rich_drinks rdf:type :Treatment .
+:ease_back_into_eating rdf:type :Treatment .
+:eat_fruits_and_high_fiberous_food rdf:type :Treatment .
+:eat_healthy rdf:type :Treatment .
+:eat_high_calorie_vegitables rdf:type :Treatment .
+:eliminate_milk rdf:type :Treatment .
+:exercise rdf:type :Treatment .
+:follow_up rdf:type :Treatment .
+:get_away_from_trigger rdf:type :Treatment .
+:get_proper_sleep rdf:type :Treatment .
+:have_balanced_diet rdf:type :Treatment .
+:increase_vitamin_c_intake rdf:type :Treatment .
+:keep_calm rdf:type :Treatment .
+:keep_fever_in_check rdf:type :Treatment .
+:keep_hydrated rdf:type :Treatment .
+:keep_infected_area_dry rdf:type :Treatment .
+:keep_mosquitos_away rdf:type :Treatment .
+:keep_mosquitos_out rdf:type :Treatment .
+:lie_down rdf:type :Treatment .
+:lie_down_flat_and_raise_the_leg_high rdf:type :Treatment .
+:lie_down_on_side rdf:type :Treatment .
+:limit_alcohol rdf:type :Treatment .
+:maintain_healthy_weight rdf:type :Treatment .
+:massage rdf:type :Treatment .
+:medication rdf:type :Treatment .
+:meditation rdf:type :Treatment .
+:reduce_stress rdf:type :Treatment .
+:relax rdf:type :Treatment .
+:remove_scabs_with_wet_compressed_cloth rdf:type :Treatment .
+:rest rdf:type :Treatment .
+:salt_baths rdf:type :Treatment .
+:seek_help rdf:type :Treatment .
+:soak_affected_area_in_warm_water rdf:type :Treatment .
+:stop_alcohol_consumption rdf:type :Treatment .
+:stop_bleeding_using_pressure rdf:type :Treatment .
+:stop_eating_solid_food_for_while rdf:type :Treatment .
+:stop_irritation rdf:type :Treatment .
+:stop_taking_drug rdf:type :Treatment .
+:switch_to_loose_cloothing rdf:type :Treatment .
+:take_deep_breaths rdf:type :Treatment .
+:take_otc_pain_reliver rdf:type :Treatment .
+:take_probiotics rdf:type :Treatment .
+:take_radioactive_iodine_treatment rdf:type :Treatment .
+:take_vaccine rdf:type :Treatment .
+:take_vapour rdf:type :Treatment .
+:try_acupuncture rdf:type :Treatment .
+:try_taking_small_sips_of_water rdf:type :Treatment .
+:use_antibiotics rdf:type :Treatment .
+:use_clean_cloths rdf:type :Treatment .
+:use_detol_or_neem_in_bathing_water rdf:type :Treatment .
+:use_heating_pad_or_cold_pack rdf:type :Treatment .
+:use_hot_and_cold_therapy rdf:type :Treatment .
+:use_ice_to_compress_itching rdf:type :Treatment .
+:use_lemon_balm rdf:type :Treatment .
+:use_neem_in_bathing rdf:type :Treatment .
+:use_oinments rdf:type :Treatment .
+:use_poloroid_glasses_in_sun rdf:type :Treatment .
+:use_vein_compression rdf:type :Treatment .
+:vaccination rdf:type :Treatment .
+:warm_bath_with_epsom_salt rdf:type :Treatment .
+:wash_hands_through rdf:type :Treatment .
+:wash_hands_with_warm_soapy_water rdf:type :Treatment .
+:wear_ppe_if_possible rdf:type :Treatment .
+
+:Drug_Reaction rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_nearest_hospital ,
+                :follow_up ,
+                :stop_irritation ,
+                :stop_taking_drug .
+
+:Malaria rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :Consult_nearest_hospital ,
+                :avoid_non_veg_food ,
+                :avoid_oily_food ,
+                :keep_mosquitos_out .
+
+:Allergy rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment : ,
+                :apply_calamine ,
+                :cover_area_with_bandage ,
+                :use_ice_to_compress_itching .
+
+:Hypothyroidism rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :eat_healthy ,
+                :exercise ,
+                :get_proper_sleep ,
+                :reduce_stress .
+
+:Psoriasis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :salt_baths ,
+                :stop_bleeding_using_pressure ,
+                :wash_hands_with_warm_soapy_water .
+
+:GERD rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :avoid_lying_down_after_eating ,
+                :exercise ,
+                :maintain_healthy_weight .
+
+:Chronic_cholestasis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :anti_itch_medicine ,
+                :cold_baths ,
+                :consult_doctor ,
+                :eat_healthy .
+
+:hepatitis_A rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :Consult_nearest_hospital ,
+                :avoid_fatty_spicy_food ,
+                :medication ,
+                :wash_hands_through .
+
+:Osteoarthristis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :acetaminophen ,
+                :consult_nearest_hospital ,
+                :follow_up ,
+                :salt_baths .
+
+:vertigo_Paroymsal__Positional_Vertigo rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_abrupt_head_movment ,
+                :avoid_sudden_change_in_body ,
+                :lie_down ,
+                :relax .
+
+:Hypoglycemia rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :check_in_pulse ,
+                :consult_doctor ,
+                :drink_sugary_drinks ,
+                :lie_down_on_side .
+
+:Acne rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :avoid_too_many_products ,
+                :bath_twice ,
+                :drink_plenty_of_water .
+
+:Diabetes rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :exercise ,
+                :follow_up ,
+                :have_balanced_diet .
+
+:Impetigo rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :remove_scabs_with_wet_compressed_cloth ,
+                :soak_affected_area_in_warm_water ,
+                :use_antibiotics .
+
+:Hypertension rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :get_proper_sleep ,
+                :meditation ,
+                :reduce_stress ,
+                :salt_baths .
+
+:Peptic_ulcer_diseae rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :consume_probiotic_food ,
+                :eliminate_milk ,
+                :limit_alcohol .
+
+:Dimorphic_hemmorhoidspiles rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :consume_alovera_juice ,
+                :consume_witch_hazel ,
+                :warm_bath_with_epsom_salt .
+
+:Common_Cold rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_cold_food ,
+                :drink_vitamin_c_rich_drinks ,
+                :keep_fever_in_check ,
+                :take_vapour .
+
+:Chicken_pox rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_public_places ,
+                :consume_neem_leaves ,
+                :take_vaccine ,
+                :use_neem_in_bathing .
+
+:Cervical_spondylosis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :exercise ,
+                :take_otc_pain_reliver ,
+                :use_heating_pad_or_cold_pack .
+
+:Hyperthyroidism rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :eat_healthy ,
+                :massage ,
+                :take_radioactive_iodine_treatment ,
+                :use_lemon_balm .
+
+:Urinary_tract_infection rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :drink_cranberry_juice ,
+                :drink_plenty_of_water ,
+                :increase_vitamin_c_intake ,
+                :take_probiotics .
+
+:Varicose_veins rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :dont_stand_still_for_long ,
+                :lie_down_flat_and_raise_the_leg_high ,
+                :use_oinments ,
+                :use_vein_compression .
+
+:AIDS rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_open_cuts ,
+                :consult_doctor ,
+                :follow_up ,
+                :wear_ppe_if_possible .
+
+:Paralysis_brain_hemorrhage rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :eat_healthy ,
+                :exercise ,
+                :massage .
+
+:Typhoid rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :antiboitic_therapy ,
+                :consult_doctor ,
+                :eat_high_calorie_vegitables ,
+                :medication .
+
+:Hepatitis_B rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_nearest_hospital ,
+                :eat_healthy ,
+                :medication ,
+                :vaccination .
+
+:Fungal_infection rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :bath_twice ,
+                :keep_infected_area_dry ,
+                :use_clean_cloths ,
+                :use_detol_or_neem_in_bathing_water .
+
+:Hepatitis_C rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :Consult_nearest_hospital ,
+                :eat_healthy ,
+                :medication ,
+                :vaccination .
+
+:Migraine rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :meditation ,
+                :reduce_stress ,
+                :use_poloroid_glasses_in_sun .
+
+:Bronchial_Asthma rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :get_away_from_trigger ,
+                :seek_help ,
+                :switch_to_loose_cloothing ,
+                :take_deep_breaths .
+
+:Alcoholic_hepatitis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :follow_up ,
+                :medication ,
+                :stop_alcohol_consumption .
+
+:Jaundice rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consume_milk_thistle ,
+                :drink_plenty_of_water ,
+                :eat_fruits_and_high_fiberous_food ,
+                :medication .
+
+:Hepatitis_E rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :medication ,
+                :rest ,
+                :stop_alcohol_consumption .
+
+:Dengue rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :drink_papaya_leaf_juice ,
+                :keep_hydrated ,
+                :keep_mosquitos_away .
+
+:Hepatitis_D rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :eat_healthy ,
+                :follow_up ,
+                :medication .
+
+:Heart_attack rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment : ,
+                :call_ambulance ,
+                :chew_or_swallow_asprin ,
+                :keep_calm .
+
+:Pneumonia rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :follow_up ,
+                :medication ,
+                :rest .
+
+:Arthritis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :exercise ,
+                :massage ,
+                :try_acupuncture ,
+                :use_hot_and_cold_therapy .
+
+:Gastroenteritis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :ease_back_into_eating ,
+                :rest ,
+                :stop_eating_solid_food_for_while ,
+                :try_taking_small_sips_of_water .
+
+:Tuberculosis rdf:type owl:NamedIndividual ,
+         :Disease ;
+         :hasTreatment :consult_doctor ,
+                :cover_mouth ,
+                :medication ,
+                :rest .
+

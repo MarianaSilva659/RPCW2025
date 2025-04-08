@@ -52,11 +52,15 @@
                    rdfs:range :Treatment .
 
 
+###  http://www.example.org/disease-ontology#tratamento
+:tratamento rdf:type owl:ObjectProperty .
+
+
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://www.example.org/disease-ontology/Ontology#descrição
+###  http://www.example.org/disease-ontology#descrição
 :descrição rdf:type owl:DatatypeProperty ;
            rdfs:domain :Disease .
 
@@ -91,7 +95,8 @@
       :hasSymptom :extra_marital_contacts ,
                   :high_fever ,
                   :muscle_wasting ,
-                  :patches_in_throat .
+                  :patches_in_throat ;
+      :descrição "Acquired immunodeficiency syndrome (AIDS) is a chronic, potentially life-threatening condition caused by the human immunodeficiency virus (HIV). By damaging your immune system, HIV interferes with your body's ability to fight infection and disease." .
 
 
 ###  http://www.example.org/disease-ontology#Acne
@@ -100,8 +105,8 @@
       :hasSymptom :blackheads ,
                   :pus_filled_pimples ,
                   :scurring ,
-                  :skin_rash .
-
+                  :skin_rash ;
+      :descrição "Acne vulgaris is the formation of comedones, papules, pustules, nodules, and/or cysts as a result of obstruction and inflammation of pilosebaceous units (hair follicles and their accompanying sebaceous gland). Acne develops on the face and upper trunk. It most often affects adolescents." .
 
 
 ###  http://www.example.org/disease-ontology#Alcoholic_hepatitis
@@ -113,7 +118,8 @@
                                  :history_of_alcohol_consumption ,
                                  :swelling_of_stomach ,
                                  :vomiting ,
-                                 :yellowish_skin .
+                                 :yellowish_skin ;
+                     :descrição "Alcoholic hepatitis is a diseased, inflammatory condition of the liver caused by heavy alcohol consumption over an extended period of time. It's also aggravated by binge drinking and ongoing alcohol use. If you develop this condition, you must stop drinking alcohol" .
 
 
 ###  http://www.example.org/disease-ontology#Allergy
@@ -122,7 +128,8 @@
          :hasSymptom :chills ,
                      :continuous_sneezing ,
                      :shivering ,
-                     :watering_from_eyes .
+                     :watering_from_eyes ;
+         :descrição "An allergy is an immune system response to a foreign substance that's not typically harmful to your body.They can include certain foods, pollen, or pet dander. Your immune system's job is to keep you healthy by fighting harmful pathogens." .
 
 
 ###  http://www.example.org/disease-ontology#AntiviralDrugs
@@ -137,7 +144,8 @@
                        :muscle_weakness ,
                        :painful_walking ,
                        :stiff_neck ,
-                       :swelling_joints .
+                       :swelling_joints ;
+           :descrição "Arthritis is the swelling and tenderness of one or more of your joints. The main symptoms of arthritis are joint pain and stiffness, which typically worsen with age. The most common types of arthritis are osteoarthritis and rheumatoid arthritis." .
 
 
 ###  http://www.example.org/disease-ontology#Bronchial_Asthma
@@ -148,7 +156,8 @@
                               :family_history ,
                               :fatigue ,
                               :high_fever ,
-                              :mucoid_sputum .
+                              :mucoid_sputum ;
+                  :descrição "Bronchial asthma is a medical condition which causes the airway path of the lungs to swell and narrow. Due to this swelling, the air path produces excess mucus making it hard to breathe, which results in coughing, short breath, and wheezing. The disease is chronic and interferes with daily working." .
 
 
 ###  http://www.example.org/disease-ontology#Cervical_spondylosis
@@ -158,7 +167,8 @@
                                   :dizziness ,
                                   :loss_of_balance ,
                                   :neck_pain ,
-                                  :weakness_in_limbs .
+                                  :weakness_in_limbs ;
+                      :descrição "Cervical spondylosis is a general term for age-related wear and tear affecting the spinal disks in your neck. As the disks dehydrate and shrink, signs of osteoarthritis develop, including bony projections along the edges of bones (bone spurs)." .
 
 
 ###  http://www.example.org/disease-ontology#Chicken_pox
@@ -174,7 +184,8 @@
                          :mild_fever ,
                          :red_spots_over_body ,
                          :skin_rash ,
-                         :swelled_lymph_nodes .
+                         :swelled_lymph_nodes ;
+             :descrição "Chickenpox is a highly contagious disease caused by the varicella-zoster virus (VZV). It can cause an itchy, blister-like rash. The rash first appears on the chest, back, and face, and then spreads over the entire body, causing between 250 and 500 itchy blisters." .
 
 
 ###  http://www.example.org/disease-ontology#Chronic_cholestasis
@@ -186,7 +197,8 @@
                                  :nausea ,
                                  :vomiting ,
                                  :yellowing_of_eyes ,
-                                 :yellowish_skin .
+                                 :yellowish_skin ;
+                     :descrição "Chronic cholestatic diseases, whether occurring in infancy, childhood or adulthood, are characterized by defective bile acid transport from the liver to the intestine, which is caused by primary damage to the biliary epithelium in most cases" .
 
 
 ###  http://www.example.org/disease-ontology#Common_Cold
@@ -208,7 +220,8 @@
                          :runny_nose ,
                          :sinus_pressure ,
                          :swelled_lymph_nodes ,
-                         :throat_irritation .
+                         :throat_irritation ;
+             :descrição "The common cold is a viral infection of your nose and throat (upper respiratory tract). It's usually harmless, although it might not feel that way. Many types of viruses can cause a common cold." .
 
 
 ###  http://www.example.org/disease-ontology#Cough
@@ -232,7 +245,8 @@
                     :pain_behind_the_eyes ,
                     :red_spots_over_body ,
                     :skin_rash ,
-                    :vomiting .
+                    :vomiting ;
+        :descrição "an acute infectious disease caused by a flavivirus (species Dengue virus of the genus Flavivirus), transmitted by aedes mosquitoes, and characterized by headache, severe joint pain, and a rash. — called also breakbone fever, dengue fever." .
 
 
 ###  http://www.example.org/disease-ontology#Diabetes
@@ -253,7 +267,8 @@
                       :weight_loss ;
           :hasTreatment :DietModification ,
                         :Exercise ,
-                        :InsulinTherapy .
+                        :InsulinTherapy ;
+          :descrição "Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high. Blood glucose is your main source of energy and comes from the food you eat. Insulin, a hormone made by the pancreas, helps glucose from food get into your cells to be used for energy." .
 
 
 ###  http://www.example.org/disease-ontology#DietModification
@@ -271,6 +286,11 @@
                                         :pain_in_anal_region .
 
 
+###  http://www.example.org/disease-ontology#Dimorphic_hemorrhoidspiles
+:Dimorphic_hemorrhoidspiles rdf:type owl:NamedIndividual ;
+                            :descrição "Hemorrhoids, also spelled haemorrhoids, are vascular structures in the anal canal. In their ... Other names, Haemorrhoids, piles, hemorrhoidal disease ." .
+
+
 ###  http://www.example.org/disease-ontology#Drug_Reaction
 :Drug_Reaction rdf:type owl:NamedIndividual ,
                         :Disease ;
@@ -278,7 +298,8 @@
                            :itching ,
                            :skin_rash ,
                            :spotting__urination ,
-                           :stomach_pain .
+                           :stomach_pain ;
+               :descrição "An adverse drug reaction (ADR) is an injury caused by taking medication. ADRs may occur following a single dose or prolonged administration of a drug or result from the combination of two or more drugs." .
 
 
 ###  http://www.example.org/disease-ontology#Exercise
@@ -318,7 +339,8 @@
                   :hasSymptom :dischromic__patches ,
                               :itching ,
                               :nodal_skin_eruptions ,
-                              :skin_rash .
+                              :skin_rash ;
+                  :descrição "In humans, fungal infections occur when an invading fungus takes over an area of the body and is too much for the immune system to handle. Fungi can live in the air, soil, water, and plants. There are also some fungi that live naturally in the human body. Like many microbes, there are helpful fungi and harmful fungi." .
 
 
 ###  http://www.example.org/disease-ontology#GERD
@@ -329,7 +351,8 @@
                   :cough ,
                   :stomach_pain ,
                   :ulcers_on_tongue ,
-                  :vomiting .
+                  :vomiting ;
+      :descrição "Gastroesophageal reflux disease, or GERD, is a digestive disorder that affects the lower esophageal sphincter (LES), the ring of muscle between the esophagus and stomach. Many people, including pregnant women, suffer from heartburn or acid indigestion caused by GERD." .
 
 
 ###  http://www.example.org/disease-ontology#Gastroenteritis
@@ -338,7 +361,8 @@
                  :hasSymptom :dehydration ,
                              :diarrhoea ,
                              :sunken_eyes ,
-                             :vomiting .
+                             :vomiting ;
+                 :descrição "Gastroenteritis is an inflammation of the digestive tract, particularly the stomach, and large and small intestines. Viral and bacterial gastroenteritis are intestinal infections associated with symptoms of diarrhea , abdominal cramps, nausea , and vomiting ." .
 
 
 ###  http://www.example.org/disease-ontology#Heart_attack
@@ -347,7 +371,8 @@
               :hasSymptom :breathlessness ,
                           :chest_pain ,
                           :sweating ,
-                          :vomiting .
+                          :vomiting ;
+              :descrição "The death of heart muscle due to the loss of blood supply. The loss of blood supply is usually caused by a complete blockage of a coronary artery, one of the arteries that supplies blood to the heart muscle." .
 
 
 ###  http://www.example.org/disease-ontology#Hepatitis_B
@@ -364,7 +389,8 @@
                          :receiving_unsterile_injections ,
                          :yellow_urine ,
                          :yellowing_of_eyes ,
-                         :yellowish_skin .
+                         :yellowish_skin ;
+             :descrição "Hepatitis B is an infection of your liver. It can cause scarring of the organ, liver failure, and cancer. It can be fatal if it isn't treated. It's spread when people come in contact with the blood, open sores, or body fluids of someone who has the hepatitis B virus." .
 
 
 ###  http://www.example.org/disease-ontology#Hepatitis_C
@@ -375,7 +401,8 @@
                          :loss_of_appetite ,
                          :nausea ,
                          :yellowing_of_eyes ,
-                         :yellowish_skin .
+                         :yellowish_skin ;
+             :descrição "Inflammation of the liver due to the hepatitis C virus (HCV), which is usually spread via blood transfusion (rare), hemodialysis, and needle sticks. The damage hepatitis C does to the liver can lead to cirrhosis and its complications as well as cancer." .
 
 
 ###  http://www.example.org/disease-ontology#Hepatitis_D
@@ -389,7 +416,8 @@
                          :nausea ,
                          :vomiting ,
                          :yellowing_of_eyes ,
-                         :yellowish_skin .
+                         :yellowish_skin ;
+             :descrição "Hepatitis D, also known as the hepatitis delta virus, is an infection that causes the liver to become inflamed. This swelling can impair liver function and cause long-term liver problems, including liver scarring and cancer. The condition is caused by the hepatitis D virus (HDV)." .
 
 
 ###  http://www.example.org/disease-ontology#Hepatitis_E
@@ -407,7 +435,8 @@
                          :stomach_bleeding ,
                          :vomiting ,
                          :yellowing_of_eyes ,
-                         :yellowish_skin .
+                         :yellowish_skin ;
+             :descrição "A rare form of liver inflammation caused by infection with the hepatitis E virus (HEV). It is transmitted via food or drink handled by an infected person or through infected water supplies in areas where fecal matter may get into the water. Hepatitis E does not cause chronic liver disease." .
 
 
 ###  http://www.example.org/disease-ontology#Hydration
@@ -422,7 +451,8 @@
                           :dizziness ,
                           :headache ,
                           :lack_of_concentration ,
-                          :loss_of_balance .
+                          :loss_of_balance ;
+              :descrição "Hypertension (HTN or HT), also known as high blood pressure (HBP), is a long-term medical condition in which the blood pressure in the arteries is persistently elevated. High blood pressure typically does not cause symptoms." .
 
 
 ###  http://www.example.org/disease-ontology#Hyperthyroidism
@@ -438,7 +468,8 @@
                              :muscle_weakness ,
                              :restlessness ,
                              :sweating ,
-                             :weight_loss .
+                             :weight_loss ;
+                 :descrição "Hyperthyroidism (overactive thyroid) occurs when your thyroid gland produces too much of the hormone thyroxine. Hyperthyroidism can accelerate your body's metabolism, causing unintentional weight loss and a rapid or irregular heartbeat." .
 
 
 ###  http://www.example.org/disease-ontology#Hypoglycemia
@@ -455,7 +486,8 @@
                           :palpitations ,
                           :slurred_speech ,
                           :sweating ,
-                          :vomiting .
+                          :vomiting ;
+              :descrição "Hypoglycemia is a condition in which your blood sugar (glucose) level is lower than normal. Glucose is your body's main energy source. Hypoglycemia is often related to diabetes treatment. But other drugs and a variety of conditions — many rare — can cause low blood sugar in people who don't have diabetes." .
 
 
 ###  http://www.example.org/disease-ontology#Hypothyroidism
@@ -473,7 +505,8 @@
                             :mood_swings ,
                             :puffy_face_and_eyes ,
                             :swollen_extremeties ,
-                            :weight_gain .
+                            :weight_gain ;
+                :descrição "Hypothyroidism, also called underactive thyroid or low thyroid, is a disorder of the endocrine system in which the thyroid gland does not produce enough thyroid hormone." .
 
 
 ###  http://www.example.org/disease-ontology#Impetigo
@@ -483,7 +516,8 @@
                       :high_fever ,
                       :red_sore_around_nose ,
                       :skin_rash ,
-                      :yellow_crust_ooze .
+                      :yellow_crust_ooze ;
+          :descrição "Impetigo (im-puh-TIE-go) is a common and highly contagious skin infection that mainly affects infants and children. Impetigo usually appears as red sores on the face, especially around a child's nose and mouth, and on hands and feet. The sores burst and develop honey-colored crusts." .
 
 
 ###  http://www.example.org/disease-ontology#IncreasedThirst
@@ -506,7 +540,8 @@
                       :itching ,
                       :vomiting ,
                       :weight_loss ,
-                      :yellowish_skin .
+                      :yellowish_skin ;
+          :descrição "Yellow staining of the skin and sclerae (the whites of the eyes) by abnormally high blood levels of the bile pigment bilirubin. The yellowing extends to other tissues and body fluids. Jaundice was once called the morbus regius (the regal disease) in the belief that only the touch of a king could cure it" .
 
 
 ###  http://www.example.org/disease-ontology#Malaria
@@ -519,7 +554,8 @@
                      :muscle_pain ,
                      :nausea ,
                      :sweating ,
-                     :vomiting .
+                     :vomiting ;
+         :descrição "An infectious disease caused by protozoan parasites from the Plasmodium family that can be transmitted by the bite of the Anopheles mosquito or by a contaminated needle or transfusion. Falciparum malaria is the most deadly type." .
 
 
 ###  http://www.example.org/disease-ontology#Migraine
@@ -533,7 +569,8 @@
                       :indigestion ,
                       :irritability ,
                       :stiff_neck ,
-                      :visual_disturbances .
+                      :visual_disturbances ;
+          :descrição "A migraine can cause severe throbbing pain or a pulsing sensation, usually on one side of the head. It's often accompanied by nausea, vomiting, and extreme sensitivity to light and sound. Migraine attacks can last for hours to days, and the pain can be so severe that it interferes with your daily activities." .
 
 
 ###  http://www.example.org/disease-ontology#Osteoarthristis
@@ -544,7 +581,8 @@
                              :knee_pain ,
                              :neck_pain ,
                              :painful_walking ,
-                             :swelling_joints .
+                             :swelling_joints ;
+                 :descrição "Osteoarthritis is the most common form of arthritis, affecting millions of people worldwide. It occurs when the protective cartilage that cushions the ends of your bones wears down over time." .
 
 
 ###  http://www.example.org/disease-ontology#Paralysis_brain_hemorrhage
@@ -553,7 +591,8 @@
                             :hasSymptom :altered_sensorium ,
                                         :headache ,
                                         :vomiting ,
-                                        :weakness_of_one_body_side .
+                                        :weakness_of_one_body_side ;
+                            :descrição "Intracerebral hemorrhage (ICH) is when blood suddenly bursts into brain tissue, causing damage to your brain. Symptoms usually appear suddenly during ICH. They include headache, weakness, confusion, and paralysis, particularly on one side of your body." .
 
 
 ###  http://www.example.org/disease-ontology#Patient1
@@ -582,7 +621,8 @@
                                  :internal_itching ,
                                  :loss_of_appetite ,
                                  :passage_of_gases ,
-                                 :vomiting .
+                                 :vomiting ;
+                     :descrição "Peptic ulcer disease (PUD) is a break in the inner lining of the stomach, the first part of the small intestine, or sometimes the lower esophagus. An ulcer in the stomach is called a gastric ulcer, while one in the first part of the intestines is a duodenal ulcer." .
 
 
 ###  http://www.example.org/disease-ontology#Pneumonia
@@ -598,7 +638,8 @@
                        :malaise ,
                        :phlegm ,
                        :rusty_sputum ,
-                       :sweating .
+                       :sweating ;
+           :descrição "Pneumonia is an infection in one or both lungs. Bacteria, viruses, and fungi cause it. The infection causes inflammation in the air sacs in your lungs, which are called alveoli. The alveoli fill with fluid or pus, making it difficult to breathe." .
 
 
 ###  http://www.example.org/disease-ontology#Psoriasis
@@ -609,7 +650,8 @@
                        :silver_like_dusting ,
                        :skin_peeling ,
                        :skin_rash ,
-                       :small_dents_in_nails .
+                       :small_dents_in_nails ;
+           :descrição "Psoriasis is a common skin disorder that forms thick, red, bumpy patches covered with silvery scales. They can pop up anywhere, but most appear on the scalp, elbows, knees, and lower back. Psoriasis can't be passed from person to person. It does sometimes happen in members of the same family." .
 
 
 ###  http://www.example.org/disease-ontology#Rest
@@ -640,7 +682,8 @@
                           :swelled_lymph_nodes ,
                           :vomiting ,
                           :weight_loss ,
-                          :yellowing_of_eyes .
+                          :yellowing_of_eyes ;
+              :descrição "Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria. Tuberculosis generally affects the lungs, but can also affect other parts of the body. Most infections show no symptoms, in which case it is known as latent tuberculosis." .
 
 
 ###  http://www.example.org/disease-ontology#Typhoid
@@ -656,7 +699,8 @@
                      :high_fever ,
                      :nausea ,
                      :toxic_look_typhos ,
-                     :vomiting .
+                     :vomiting ;
+         :descrição "An acute illness characterized by fever caused by infection with the bacterium Salmonella typhi. Typhoid fever has an insidious onset, with fever, headache, constipation, malaise, chills, and muscle pain. Diarrhea is uncommon, and vomiting is not usually severe." .
 
 
 ###  http://www.example.org/disease-ontology#Urinary_tract_infection
@@ -665,7 +709,8 @@
                          :hasSymptom :bladder_discomfort ,
                                      :burning_micturition ,
                                      :continuous_feel_of_urine ,
-                                     :foul_smell_of_urine .
+                                     :foul_smell_of_urine ;
+                         :descrição "Urinary tract infection: An infection of the kidney, ureter, bladder, or urethra. Abbreviated UTI. Not everyone with a UTI has symptoms, but common symptoms include a frequent urge to urinate and pain or burning when urinating." .
 
 
 ###  http://www.example.org/disease-ontology#Varicose_veins
@@ -677,7 +722,8 @@
                             :obesity ,
                             :prominent_veins_on_calf ,
                             :swollen_blood_vessels ,
-                            :swollen_legs .
+                            :swollen_legs ;
+                :descrição "A vein that has enlarged and twisted, often appearing as a bulging, blue blood vessel that is clearly visible through the skin. Varicose veins are most common in older adults, particularly women, and occur especially on the legs." .
 
 
 ###  http://www.example.org/disease-ontology#abdominal_pain
@@ -918,7 +964,8 @@
                          :nausea ,
                          :vomiting ,
                          :yellowing_of_eyes ,
-                         :yellowish_skin .
+                         :yellowish_skin ;
+             :descrição "Hepatitis A is a highly contagious liver infection caused by the hepatitis A virus. The virus is one of several types of hepatitis viruses that cause inflammation and affect your liver's ability to function." .
 
 
 ###  http://www.example.org/disease-ontology#high_fever
@@ -1304,7 +1351,8 @@
                                                    :nausea ,
                                                    :spinning_movements ,
                                                    :unsteadiness ,
-                                                   :vomiting .
+                                                   :vomiting ;
+                                       :descrição "Benign paroxysmal positional vertigo (BPPV) is one of the most common causes of vertigo — the sudden sensation that you're spinning or that the inside of your head is spinning. Benign paroxysmal positional vertigo causes brief episodes of mild to intense dizziness." .
 
 
 ###  http://www.example.org/disease-ontology#visual_disturbances
@@ -1362,85 +1410,353 @@
                          :Symptom .
 
 
-:Drug_Reaction  :descrição "An adverse drug reaction (ADR) is an injury caused by taking medication. ADRs may occur following a single dose or prolonged administration of a drug or result from the combination of two or more drugs." .
+: rdf:type :Treatment .
+:Consult_nearest_hospital rdf:type :Treatment .
+:acetaminophen rdf:type :Treatment .
+:anti_itch_medicine rdf:type :Treatment .
+:antiboitic_therapy rdf:type :Treatment .
+:apply_calamine rdf:type :Treatment .
+:avoid_abrupt_head_movment rdf:type :Treatment .
+:avoid_cold_food rdf:type :Treatment .
+:avoid_fatty_spicy_food rdf:type :Treatment .
+:avoid_lying_down_after_eating rdf:type :Treatment .
+:avoid_non_veg_food rdf:type :Treatment .
+:avoid_oily_food rdf:type :Treatment .
+:avoid_open_cuts rdf:type :Treatment .
+:avoid_public_places rdf:type :Treatment .
+:avoid_sudden_change_in_body rdf:type :Treatment .
+:avoid_too_many_products rdf:type :Treatment .
+:bath_twice rdf:type :Treatment .
+:call_ambulance rdf:type :Treatment .
+:check_in_pulse rdf:type :Treatment .
+:chew_or_swallow_asprin rdf:type :Treatment .
+:cold_baths rdf:type :Treatment .
+:consult_doctor rdf:type :Treatment .
+:consult_nearest_hospital rdf:type :Treatment .
+:consume_alovera_juice rdf:type :Treatment .
+:consume_milk_thistle rdf:type :Treatment .
+:consume_neem_leaves rdf:type :Treatment .
+:consume_probiotic_food rdf:type :Treatment .
+:consume_witch_hazel rdf:type :Treatment .
+:cover_area_with_bandage rdf:type :Treatment .
+:cover_mouth rdf:type :Treatment .
+:dont_stand_still_for_long rdf:type :Treatment .
+:drink_cranberry_juice rdf:type :Treatment .
+:drink_papaya_leaf_juice rdf:type :Treatment .
+:drink_plenty_of_water rdf:type :Treatment .
+:drink_sugary_drinks rdf:type :Treatment .
+:drink_vitamin_c_rich_drinks rdf:type :Treatment .
+:ease_back_into_eating rdf:type :Treatment .
+:eat_fruits_and_high_fiberous_food rdf:type :Treatment .
+:eat_healthy rdf:type :Treatment .
+:eat_high_calorie_vegitables rdf:type :Treatment .
+:eliminate_milk rdf:type :Treatment .
+:exercise rdf:type :Treatment .
+:follow_up rdf:type :Treatment .
+:get_away_from_trigger rdf:type :Treatment .
+:get_proper_sleep rdf:type :Treatment .
+:have_balanced_diet rdf:type :Treatment .
+:increase_vitamin_c_intake rdf:type :Treatment .
+:keep_calm rdf:type :Treatment .
+:keep_fever_in_check rdf:type :Treatment .
+:keep_hydrated rdf:type :Treatment .
+:keep_infected_area_dry rdf:type :Treatment .
+:keep_mosquitos_away rdf:type :Treatment .
+:keep_mosquitos_out rdf:type :Treatment .
+:lie_down rdf:type :Treatment .
+:lie_down_flat_and_raise_the_leg_high rdf:type :Treatment .
+:lie_down_on_side rdf:type :Treatment .
+:limit_alcohol rdf:type :Treatment .
+:maintain_healthy_weight rdf:type :Treatment .
+:massage rdf:type :Treatment .
+:medication rdf:type :Treatment .
+:meditation rdf:type :Treatment .
+:reduce_stress rdf:type :Treatment .
+:relax rdf:type :Treatment .
+:remove_scabs_with_wet_compressed_cloth rdf:type :Treatment .
+:rest rdf:type :Treatment .
+:salt_baths rdf:type :Treatment .
+:seek_help rdf:type :Treatment .
+:soak_affected_area_in_warm_water rdf:type :Treatment .
+:stop_alcohol_consumption rdf:type :Treatment .
+:stop_bleeding_using_pressure rdf:type :Treatment .
+:stop_eating_solid_food_for_while rdf:type :Treatment .
+:stop_irritation rdf:type :Treatment .
+:stop_taking_drug rdf:type :Treatment .
+:switch_to_loose_cloothing rdf:type :Treatment .
+:take_deep_breaths rdf:type :Treatment .
+:take_otc_pain_reliver rdf:type :Treatment .
+:take_probiotics rdf:type :Treatment .
+:take_radioactive_iodine_treatment rdf:type :Treatment .
+:take_vaccine rdf:type :Treatment .
+:take_vapour rdf:type :Treatment .
+:try_acupuncture rdf:type :Treatment .
+:try_taking_small_sips_of_water rdf:type :Treatment .
+:use_antibiotics rdf:type :Treatment .
+:use_clean_cloths rdf:type :Treatment .
+:use_detol_or_neem_in_bathing_water rdf:type :Treatment .
+:use_heating_pad_or_cold_pack rdf:type :Treatment .
+:use_hot_and_cold_therapy rdf:type :Treatment .
+:use_ice_to_compress_itching rdf:type :Treatment .
+:use_lemon_balm rdf:type :Treatment .
+:use_neem_in_bathing rdf:type :Treatment .
+:use_oinments rdf:type :Treatment .
+:use_poloroid_glasses_in_sun rdf:type :Treatment .
+:use_vein_compression rdf:type :Treatment .
+:vaccination rdf:type :Treatment .
+:warm_bath_with_epsom_salt rdf:type :Treatment .
+:wash_hands_through rdf:type :Treatment .
+:wash_hands_with_warm_soapy_water rdf:type :Treatment .
+:wear_ppe_if_possible rdf:type :Treatment .
 
-:Malaria  :descrição "An infectious disease caused by protozoan parasites from the Plasmodium family that can be transmitted by the bite of the Anopheles mosquito or by a contaminated needle or transfusion. Falciparum malaria is the most deadly type." .
+:Drug_Reaction 
+         :hasTreatment :consult_nearest_hospital ,
+                :follow_up ,
+                :stop_irritation ,
+                :stop_taking_drug .
 
-:Allergy  :descrição "An allergy is an immune system response to a foreign substance that's not typically harmful to your body.They can include certain foods, pollen, or pet dander. Your immune system's job is to keep you healthy by fighting harmful pathogens." .
+:Malaria 
+         :hasTreatment :Consult_nearest_hospital ,
+                :avoid_non_veg_food ,
+                :avoid_oily_food ,
+                :keep_mosquitos_out .
 
-:Hypothyroidism  :descrição "Hypothyroidism, also called underactive thyroid or low thyroid, is a disorder of the endocrine system in which the thyroid gland does not produce enough thyroid hormone." .
+:Allergy 
+         :hasTreatment : ,
+                :apply_calamine ,
+                :cover_area_with_bandage ,
+                :use_ice_to_compress_itching .
 
-:Psoriasis  :descrição "Psoriasis is a common skin disorder that forms thick, red, bumpy patches covered with silvery scales. They can pop up anywhere, but most appear on the scalp, elbows, knees, and lower back. Psoriasis can't be passed from person to person. It does sometimes happen in members of the same family." .
+:Hypothyroidism 
+         :hasTreatment :eat_healthy ,
+                :exercise ,
+                :get_proper_sleep ,
+                :reduce_stress .
 
-:GERD  :descrição "Gastroesophageal reflux disease, or GERD, is a digestive disorder that affects the lower esophageal sphincter (LES), the ring of muscle between the esophagus and stomach. Many people, including pregnant women, suffer from heartburn or acid indigestion caused by GERD." .
+:Psoriasis 
+         :hasTreatment :consult_doctor ,
+                :salt_baths ,
+                :stop_bleeding_using_pressure ,
+                :wash_hands_with_warm_soapy_water .
 
-:Chronic_cholestasis  :descrição "Chronic cholestatic diseases, whether occurring in infancy, childhood or adulthood, are characterized by defective bile acid transport from the liver to the intestine, which is caused by primary damage to the biliary epithelium in most cases" .
+:GERD 
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :avoid_lying_down_after_eating ,
+                :exercise ,
+                :maintain_healthy_weight .
 
-:hepatitis_A  :descrição "Hepatitis A is a highly contagious liver infection caused by the hepatitis A virus. The virus is one of several types of hepatitis viruses that cause inflammation and affect your liver's ability to function." .
+:Chronic_cholestasis 
+         :hasTreatment :anti_itch_medicine ,
+                :cold_baths ,
+                :consult_doctor ,
+                :eat_healthy .
 
-:Osteoarthristis  :descrição "Osteoarthritis is the most common form of arthritis, affecting millions of people worldwide. It occurs when the protective cartilage that cushions the ends of your bones wears down over time." .
+:hepatitis_A 
+         :hasTreatment :Consult_nearest_hospital ,
+                :avoid_fatty_spicy_food ,
+                :medication ,
+                :wash_hands_through .
 
-:vertigo_Paroymsal__Positional_Vertigo  :descrição "Benign paroxysmal positional vertigo (BPPV) is one of the most common causes of vertigo — the sudden sensation that you're spinning or that the inside of your head is spinning. Benign paroxysmal positional vertigo causes brief episodes of mild to intense dizziness." .
+:Osteoarthristis 
+         :hasTreatment :acetaminophen ,
+                :consult_nearest_hospital ,
+                :follow_up ,
+                :salt_baths .
 
-:Hypoglycemia  :descrição "Hypoglycemia is a condition in which your blood sugar (glucose) level is lower than normal. Glucose is your body's main energy source. Hypoglycemia is often related to diabetes treatment. But other drugs and a variety of conditions — many rare — can cause low blood sugar in people who don't have diabetes." .
+:vertigo_Paroymsal__Positional_Vertigo 
+         :hasTreatment :avoid_abrupt_head_movment ,
+                :avoid_sudden_change_in_body ,
+                :lie_down ,
+                :relax .
 
-:Acne  :descrição "Acne vulgaris is the formation of comedones, papules, pustules, nodules, and/or cysts as a result of obstruction and inflammation of pilosebaceous units (hair follicles and their accompanying sebaceous gland). Acne develops on the face and upper trunk. It most often affects adolescents." .
+:Hypoglycemia 
+         :hasTreatment :check_in_pulse ,
+                :consult_doctor ,
+                :drink_sugary_drinks ,
+                :lie_down_on_side .
 
-:Diabetes  :descrição "Diabetes is a disease that occurs when your blood glucose, also called blood sugar, is too high. Blood glucose is your main source of energy and comes from the food you eat. Insulin, a hormone made by the pancreas, helps glucose from food get into your cells to be used for energy." .
+:Acne 
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :avoid_too_many_products ,
+                :bath_twice ,
+                :drink_plenty_of_water .
 
-:Impetigo  :descrição "Impetigo (im-puh-TIE-go) is a common and highly contagious skin infection that mainly affects infants and children. Impetigo usually appears as red sores on the face, especially around a child's nose and mouth, and on hands and feet. The sores burst and develop honey-colored crusts." .
+:Diabetes 
+         :hasTreatment :consult_doctor ,
+                :exercise ,
+                :follow_up ,
+                :have_balanced_diet .
 
-:Hypertension  :descrição "Hypertension (HTN or HT), also known as high blood pressure (HBP), is a long-term medical condition in which the blood pressure in the arteries is persistently elevated. High blood pressure typically does not cause symptoms." .
+:Impetigo 
+         :hasTreatment :consult_doctor ,
+                :remove_scabs_with_wet_compressed_cloth ,
+                :soak_affected_area_in_warm_water ,
+                :use_antibiotics .
 
-:Peptic_ulcer_diseae  :descrição "Peptic ulcer disease (PUD) is a break in the inner lining of the stomach, the first part of the small intestine, or sometimes the lower esophagus. An ulcer in the stomach is called a gastric ulcer, while one in the first part of the intestines is a duodenal ulcer." .
+:Hypertension 
+         :hasTreatment :get_proper_sleep ,
+                :meditation ,
+                :reduce_stress ,
+                :salt_baths .
 
-:Dimorphic_hemorrhoidspiles  :descrição "Hemorrhoids, also spelled haemorrhoids, are vascular structures in the anal canal. In their ... Other names, Haemorrhoids, piles, hemorrhoidal disease ." .
+:Peptic_ulcer_diseae 
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :consume_probiotic_food ,
+                :eliminate_milk ,
+                :limit_alcohol .
 
-:Common_Cold  :descrição "The common cold is a viral infection of your nose and throat (upper respiratory tract). It's usually harmless, although it might not feel that way. Many types of viruses can cause a common cold." .
+:Dimorphic_hemmorhoidspiles 
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :consume_alovera_juice ,
+                :consume_witch_hazel ,
+                :warm_bath_with_epsom_salt .
 
-:Chicken_pox  :descrição "Chickenpox is a highly contagious disease caused by the varicella-zoster virus (VZV). It can cause an itchy, blister-like rash. The rash first appears on the chest, back, and face, and then spreads over the entire body, causing between 250 and 500 itchy blisters." .
+:Common_Cold 
+         :hasTreatment :avoid_cold_food ,
+                :drink_vitamin_c_rich_drinks ,
+                :keep_fever_in_check ,
+                :take_vapour .
 
-:Cervical_spondylosis  :descrição "Cervical spondylosis is a general term for age-related wear and tear affecting the spinal disks in your neck. As the disks dehydrate and shrink, signs of osteoarthritis develop, including bony projections along the edges of bones (bone spurs)." .
+:Chicken_pox 
+         :hasTreatment :avoid_public_places ,
+                :consume_neem_leaves ,
+                :take_vaccine ,
+                :use_neem_in_bathing .
 
-:Hyperthyroidism  :descrição "Hyperthyroidism (overactive thyroid) occurs when your thyroid gland produces too much of the hormone thyroxine. Hyperthyroidism can accelerate your body's metabolism, causing unintentional weight loss and a rapid or irregular heartbeat." .
+:Cervical_spondylosis 
+         :hasTreatment :consult_doctor ,
+                :exercise ,
+                :take_otc_pain_reliver ,
+                :use_heating_pad_or_cold_pack .
 
-:Urinary_tract_infection  :descrição "Urinary tract infection: An infection of the kidney, ureter, bladder, or urethra. Abbreviated UTI. Not everyone with a UTI has symptoms, but common symptoms include a frequent urge to urinate and pain or burning when urinating." .
+:Hyperthyroidism 
+         :hasTreatment :eat_healthy ,
+                :massage ,
+                :take_radioactive_iodine_treatment ,
+                :use_lemon_balm .
 
-:Varicose_veins  :descrição "A vein that has enlarged and twisted, often appearing as a bulging, blue blood vessel that is clearly visible through the skin. Varicose veins are most common in older adults, particularly women, and occur especially on the legs." .
+:Urinary_tract_infection 
+         :hasTreatment :drink_cranberry_juice ,
+                :drink_plenty_of_water ,
+                :increase_vitamin_c_intake ,
+                :take_probiotics .
 
-:AIDS  :descrição "Acquired immunodeficiency syndrome (AIDS) is a chronic, potentially life-threatening condition caused by the human immunodeficiency virus (HIV). By damaging your immune system, HIV interferes with your body's ability to fight infection and disease." .
+:Varicose_veins 
+         :hasTreatment :dont_stand_still_for_long ,
+                :lie_down_flat_and_raise_the_leg_high ,
+                :use_oinments ,
+                :use_vein_compression .
 
-:Paralysis_brain_hemorrhage  :descrição "Intracerebral hemorrhage (ICH) is when blood suddenly bursts into brain tissue, causing damage to your brain. Symptoms usually appear suddenly during ICH. They include headache, weakness, confusion, and paralysis, particularly on one side of your body." .
+:AIDS 
+         :hasTreatment :avoid_open_cuts ,
+                :consult_doctor ,
+                :follow_up ,
+                :wear_ppe_if_possible .
 
-:Typhoid  :descrição "An acute illness characterized by fever caused by infection with the bacterium Salmonella typhi. Typhoid fever has an insidious onset, with fever, headache, constipation, malaise, chills, and muscle pain. Diarrhea is uncommon, and vomiting is not usually severe." .
+:Paralysis_brain_hemorrhage 
+         :hasTreatment :consult_doctor ,
+                :eat_healthy ,
+                :exercise ,
+                :massage .
 
-:Hepatitis_B  :descrição "Hepatitis B is an infection of your liver. It can cause scarring of the organ, liver failure, and cancer. It can be fatal if it isn't treated. It's spread when people come in contact with the blood, open sores, or body fluids of someone who has the hepatitis B virus." .
+:Typhoid 
+         :hasTreatment :antiboitic_therapy ,
+                :consult_doctor ,
+                :eat_high_calorie_vegitables ,
+                :medication .
 
-:Fungal_infection  :descrição "In humans, fungal infections occur when an invading fungus takes over an area of the body and is too much for the immune system to handle. Fungi can live in the air, soil, water, and plants. There are also some fungi that live naturally in the human body. Like many microbes, there are helpful fungi and harmful fungi." .
+:Hepatitis_B 
+         :hasTreatment :consult_nearest_hospital ,
+                :eat_healthy ,
+                :medication ,
+                :vaccination .
 
-:Hepatitis_C  :descrição "Inflammation of the liver due to the hepatitis C virus (HCV), which is usually spread via blood transfusion (rare), hemodialysis, and needle sticks. The damage hepatitis C does to the liver can lead to cirrhosis and its complications as well as cancer." .
+:Fungal_infection 
+         :hasTreatment :bath_twice ,
+                :keep_infected_area_dry ,
+                :use_clean_cloths ,
+                :use_detol_or_neem_in_bathing_water .
 
-:Migraine  :descrição "A migraine can cause severe throbbing pain or a pulsing sensation, usually on one side of the head. It's often accompanied by nausea, vomiting, and extreme sensitivity to light and sound. Migraine attacks can last for hours to days, and the pain can be so severe that it interferes with your daily activities." .
+:Hepatitis_C 
+         :hasTreatment :Consult_nearest_hospital ,
+                :eat_healthy ,
+                :medication ,
+                :vaccination .
 
-:Bronchial_Asthma  :descrição "Bronchial asthma is a medical condition which causes the airway path of the lungs to swell and narrow. Due to this swelling, the air path produces excess mucus making it hard to breathe, which results in coughing, short breath, and wheezing. The disease is chronic and interferes with daily working." .
+:Migraine 
+         :hasTreatment :consult_doctor ,
+                :meditation ,
+                :reduce_stress ,
+                :use_poloroid_glasses_in_sun .
 
-:Alcoholic_hepatitis  :descrição "Alcoholic hepatitis is a diseased, inflammatory condition of the liver caused by heavy alcohol consumption over an extended period of time. It's also aggravated by binge drinking and ongoing alcohol use. If you develop this condition, you must stop drinking alcohol" .
+:Bronchial_Asthma 
+         :hasTreatment :get_away_from_trigger ,
+                :seek_help ,
+                :switch_to_loose_cloothing ,
+                :take_deep_breaths .
 
-:Jaundice  :descrição "Yellow staining of the skin and sclerae (the whites of the eyes) by abnormally high blood levels of the bile pigment bilirubin. The yellowing extends to other tissues and body fluids. Jaundice was once called the morbus regius (the regal disease) in the belief that only the touch of a king could cure it" .
+:Alcoholic_hepatitis 
+         :hasTreatment :consult_doctor ,
+                :follow_up ,
+                :medication ,
+                :stop_alcohol_consumption .
 
-:Hepatitis_E  :descrição "A rare form of liver inflammation caused by infection with the hepatitis E virus (HEV). It is transmitted via food or drink handled by an infected person or through infected water supplies in areas where fecal matter may get into the water. Hepatitis E does not cause chronic liver disease." .
+:Jaundice 
+         :hasTreatment :consume_milk_thistle ,
+                :drink_plenty_of_water ,
+                :eat_fruits_and_high_fiberous_food ,
+                :medication .
 
-:Dengue  :descrição "an acute infectious disease caused by a flavivirus (species Dengue virus of the genus Flavivirus), transmitted by aedes mosquitoes, and characterized by headache, severe joint pain, and a rash. — called also breakbone fever, dengue fever." .
+:Hepatitis_E 
+         :hasTreatment :consult_doctor ,
+                :medication ,
+                :rest ,
+                :stop_alcohol_consumption .
 
-:Hepatitis_D  :descrição "Hepatitis D, also known as the hepatitis delta virus, is an infection that causes the liver to become inflamed. This swelling can impair liver function and cause long-term liver problems, including liver scarring and cancer. The condition is caused by the hepatitis D virus (HDV)." .
+:Dengue 
+         :hasTreatment :avoid_fatty_spicy_food ,
+                :drink_papaya_leaf_juice ,
+                :keep_hydrated ,
+                :keep_mosquitos_away .
 
-:Heart_attack  :descrição "The death of heart muscle due to the loss of blood supply. The loss of blood supply is usually caused by a complete blockage of a coronary artery, one of the arteries that supplies blood to the heart muscle." .
+:Hepatitis_D 
+         :hasTreatment :consult_doctor ,
+                :eat_healthy ,
+                :follow_up ,
+                :medication .
 
-:Pneumonia  :descrição "Pneumonia is an infection in one or both lungs. Bacteria, viruses, and fungi cause it. The infection causes inflammation in the air sacs in your lungs, which are called alveoli. The alveoli fill with fluid or pus, making it difficult to breathe." .
+:Heart_attack 
+         :hasTreatment : ,
+                :call_ambulance ,
+                :chew_or_swallow_asprin ,
+                :keep_calm .
 
-:Arthritis  :descrição "Arthritis is the swelling and tenderness of one or more of your joints. The main symptoms of arthritis are joint pain and stiffness, which typically worsen with age. The most common types of arthritis are osteoarthritis and rheumatoid arthritis." .
+:Pneumonia 
+         :hasTreatment :consult_doctor ,
+                :follow_up ,
+                :medication ,
+                :rest .
 
-:Gastroenteritis  :descrição "Gastroenteritis is an inflammation of the digestive tract, particularly the stomach, and large and small intestines. Viral and bacterial gastroenteritis are intestinal infections associated with symptoms of diarrhea , abdominal cramps, nausea , and vomiting ." .
+:Arthritis 
+         :hasTreatment :exercise ,
+                :massage ,
+                :try_acupuncture ,
+                :use_hot_and_cold_therapy .
 
-:Tuberculosis  :descrição "Tuberculosis (TB) is an infectious disease usually caused by Mycobacterium tuberculosis (MTB) bacteria. Tuberculosis generally affects the lungs, but can also affect other parts of the body. Most infections show no symptoms, in which case it is known as latent tuberculosis." .
+:Gastroenteritis 
+         :hasTreatment :ease_back_into_eating ,
+                :rest ,
+                :stop_eating_solid_food_for_while ,
+                :try_taking_small_sips_of_water .
+
+:Tuberculosis 
+         :hasTreatment :consult_doctor ,
+                :cover_mouth ,
+                :medication ,
+                :rest .
+
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
+
 
