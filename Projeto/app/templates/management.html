@@ -1,0 +1,903 @@
+{% extends "base.html" %}
+
+{% block title %}Management - Space Ontology{% endblock %}
+
+{% block content %}
+<section style="padding: 2rem 0;">
+    <h1 style="margin-bottom: 0.5rem;">
+        <i class="bi bi-gear" style="color: var(--accent);"></i>
+        <span>Ontology Management</span>
+    </h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Manage your
+        GraphDB repository and ontology data</p>
+
+    <div class="grid grid-2" style="grid-template-columns: 2fr 1fr;">
+        <div>
+            <div class="card slide-up"
+                style="animation-delay: 0.1s; margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-database"></i>
+                        <span>GraphDB Connection</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form id="connection-form">
+                        <div class="form-group">
+                            <label for="graphdb-host" class="form-label">GraphDB
+                                Host</label>
+                            <input type="text" id="graphdb-host" name="host"
+                                class="form-control"
+                                value="localhost" placeholder="localhost">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="graphdb-port" class="form-label">GraphDB
+                                Port</label>
+                            <input type="number" id="graphdb-port" name="port"
+                                class="form-control"
+                                value="7200" placeholder="7200">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repository-select"
+                                class="form-label">Repository</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <select id="repository-select" name="repository"
+                                    class="form-control"
+                                    style="flex: 1;">
+                                    <option value="Not Selected">Not
+                                        Selected</option>
+                                </select>
+                                <button type="button" id="refresh-repos"
+                                    class="btn btn-secondary">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <button type="button" id="test-connection"
+                                class="btn btn-secondary">
+                                <i class="bi bi-wifi"></i>
+                                <span>Test Connection</span>
+                            </button>
+                            <div id="connection-status"
+                                style="font-size: 0.875rem;"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card slide-up"
+                style="animation-delay: 0.2s; margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-file-earmark-code"></i>
+                        <span>Ontology Operations</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">Import
+                            Ontology</h3>
+                        <form id="import-form" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="ontology-file"
+                                    class="form-label">Select TTL File</label>
+                                <input type="file" id="ontology-file"
+                                    name="file" class="form-control"
+                                    accept=".ttl,.owl,.rdf,.n3,.nt">
+                            </div>
+
+                            <div
+                                style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <input type="checkbox" id="create-repo-import"
+                                    name="create_repository"
+                                    style="margin-right: 0.5rem;">
+                                <label for="create-repo-import"
+                                    style="margin: 0; cursor: pointer;">Create
+                                    repository if it doesn't
+                                    exist</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-upload"></i>
+                                <span>Import to GraphDB</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <hr style="margin: 2rem 0; border-color: var(--border);">
+
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">Export
+                            Ontology</h3>
+                        <p
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 1rem;">
+                            Export the entire ontology from GraphDB to a TTL
+                            file
+                        </p>
+                        <button id="export-btn" class="btn btn-secondary">
+                            <i class="bi bi-download"></i>
+                            <span>Export from GraphDB</span>
+                        </button>
+                    </div>
+
+                    <hr style="margin: 2rem 0; border-color: var(--border);">
+
+                    <div>
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">Create
+                            Base
+                            Ontology</h3>
+                        <p
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 1rem;">
+                            Generate a new ontology with data from space APIs
+                        </p>
+
+                        <div
+                            style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <input type="checkbox" id="create-repo-base"
+                                style="margin-right: 0.5rem;">
+                            <label for="create-repo-base"
+                                style="margin: 0; cursor: pointer;">Create
+                                repository if it doesn't exist</label>
+                        </div>
+
+                        <button id="create-base-btn" class="btn btn-primary">
+                            <i class="bi bi-rocket-takeoff"></i>
+                            <span>Create Base Ontology</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card slide-up" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-database-gear"></i>
+                        <span>Repository Management</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1rem; margin-bottom: 1rem;">Create
+                            Repository</h3>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="new-repo-name"
+                                class="form-control"
+                                placeholder="Repository name" style="flex: 1;">
+                            <button id="create-repo-btn"
+                                class="btn btn-secondary">
+                                <i class="bi bi-plus-circle"></i>
+                                <span>Create</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr style="margin: 2rem 0; border-color: var(--border);">
+
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3
+                                style="font-size: 1rem; margin-bottom: 0.25rem;">Clear
+                                Repository</h3>
+                            <p
+                                style="color: var(--text-tertiary); font-size: 0.875rem; margin: 0;">
+                                Remove all data from the current repository
+                            </p>
+                        </div>
+                        <button id="clear-repo-btn" class="btn btn-warning">
+                            <i class="bi bi-trash"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <div>
+                            <h3
+                                style="font-size: 1rem; margin-bottom: 0.25rem;">Delete
+                                Repository</h3>
+                            <p
+                                style="color: var(--text-tertiary); font-size: 0.875rem; margin: 0;">
+                                Permanently delete the selected repository
+                            </p>
+                        </div>
+                        <button id="delete-repo-btn" class="btn btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                            <span>Delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card slide-up" style="animation-delay: 0.4s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-info-circle"></i>
+                        <span>Repository Status</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1rem;">
+                        <div
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            Connection Status
+                        </div>
+                        <div id="status-connection"
+                            style="font-weight: 500;">Not tested</div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <div
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            Current Repository
+                        </div>
+                        <div id="status-repository"
+                            style="font-weight: 500;">Not Selected</div>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <div
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            Total Triples
+                        </div>
+                        <div id="status-triples"
+                            style="font-weight: 500;">-</div>
+                    </div>
+
+                    <div>
+                        <div
+                            style="color: var(--text-tertiary); font-size: 0.875rem; margin-bottom: 0.25rem;">
+                            Last Updated
+                        </div>
+                        <div id="status-updated"
+                            style="font-weight: 500;">-</div>
+                    </div>
+
+                    <button id="refresh-status" class="btn btn-secondary"
+                        style="width: 100%; margin-top: 1.5rem;">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        <span>Refresh Status</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card slide-up"
+                style="animation-delay: 0.5s; margin-top: 1.5rem;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Help</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1rem;">
+                        <h3
+                            style="font-size: 1rem; margin-bottom: 0.5rem;">GraphDB
+                            Setup</h3>
+                        <p
+                            style="color: var(--text-tertiary); font-size: 0.875rem;">
+                            Make sure GraphDB is running on the specified host
+                            and port. Default is
+                            localhost:7200.
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <h3
+                            style="font-size: 1rem; margin-bottom: 0.5rem;">Import/Export</h3>
+                        <p
+                            style="color: var(--text-tertiary); font-size: 0.875rem;">
+                            You can import TTL files to populate your repository
+                            or export the
+                            current data for backup.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Base
+                            Ontology</h3>
+                        <p
+                            style="color: var(--text-tertiary); font-size: 0.875rem;">
+                            Creates a new ontology populated with real data from
+                            space APIs including
+                            NASA, SpaceX, and astronomical databases.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="confirmation-modal"
+    style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div
+        style="background-color: var(--bg-surface); border-radius: var(--radius-lg); width: 400px; max-width: 90%; padding: 1.5rem; box-shadow: var(--shadow-lg);">
+        <h3 id="modal-title"
+            style="margin-bottom: 1rem; font-size: 1.25rem;"></h3>
+        <p id="modal-message"
+            style="color: var(--text-secondary); margin-bottom: 1.5rem;"></p>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="modal-cancel" class="btn btn-secondary">Cancel</button>
+            <button id="modal-confirm" class="btn btn-danger">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<div id="repository-name-modal"
+    style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div
+        style="background-color: var(--bg-surface); border-radius: var(--radius-lg); width: 400px; max-width: 90%; padding: 1.5rem; box-shadow: var(--shadow-lg);">
+        <h3 id="repo-modal-title"
+            style="margin-bottom: 1rem; font-size: 1.25rem;">Create New
+            Repository</h3>
+        <p id="repo-modal-message"
+            style="color: var(--text-secondary); margin-bottom: 1rem;">Enter the
+            name for
+            the new repository:</p>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+            <input type="text" id="new-repository-name" class="form-control"
+                placeholder="Repository name" />
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button id="repo-modal-cancel"
+                class="btn btn-secondary">Cancel</button>
+            <button id="repo-modal-confirm" class="btn btn-primary">Create &
+                Continue</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentConfig = {
+            host: 'localhost',
+            port: 7200,
+            repository: 'Not Selected'
+        };
+
+        function loadCurrentConfig() {
+            fetch('/api/config')
+            .then(response => response.json())
+            .then(config => {
+                currentConfig = config;
+                updateFormFields();
+            })
+            .catch(error => {
+                console.error('Error loading config:', error);
+            });
+        }
+
+        function updateBackendConfig(updates) {
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updates),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    currentConfig = data.config;
+                    updateFormFields();
+                }
+            })
+            .catch(error => {
+                console.error('Error updating config:', error);
+            });
+        }
+
+        function updateFormFields() {
+            document.getElementById('graphdb-host').value = currentConfig.host;
+            document.getElementById('graphdb-port').value = currentConfig.port;
+            document.getElementById('status-repository').textContent = currentConfig.repository;
+            
+            const select = document.getElementById('repository-select');
+            for (let option of select.options) {
+                if (option.value === currentConfig.repository) {
+                    option.selected = true;
+                    break;
+                }
+            }
+        }
+
+        document.getElementById('test-connection').addEventListener('click', function() {
+            const host = document.getElementById('graphdb-host').value;
+            const port = parseInt(document.getElementById('graphdb-port').value);
+            
+            updateConnectionStatus('Testing...', 'var(--warning)');
+            
+            fetch('/api/graphdb/test-connection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ host, port }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    updateConnectionStatus('Connected', 'var(--success)');
+                    updateBackendConfig({ host, port });
+                    refreshRepositories();
+                } else {
+                    updateConnectionStatus('Failed', 'var(--danger)');
+                }
+            })
+            .catch(error => {
+                updateConnectionStatus('Error', 'var(--danger)');
+                console.error('Connection test error:', error);
+            });
+        });
+
+        document.getElementById('refresh-repos').addEventListener('click', refreshRepositories);
+
+        function refreshRepositories() {
+            fetch(`/api/graphdb/repositories?host=${currentConfig.host}&port=${currentConfig.port}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const select = document.getElementById('repository-select');
+                    select.innerHTML = '<option value="Not Selected">Not Selected</option>';
+                    
+                    data.repositories.forEach(repo => {
+                        const option = document.createElement('option');
+                        option.value = repo.id;
+                        option.textContent = repo.id;
+                        if (repo.id === currentConfig.repository) {
+                            option.selected = true;
+                        }
+                        select.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error refreshing repositories:', error);
+            });
+        }
+
+        function updateConnectionStatus(text, color) {
+            const statusEl = document.getElementById('connection-status');
+            const statusConnectionEl = document.getElementById('status-connection');
+            
+            statusEl.textContent = text;
+            statusEl.style.color = color;
+            statusConnectionEl.textContent = text;
+            statusConnectionEl.style.color = color;
+        }
+
+        document.getElementById('repository-select').addEventListener('change', function() {
+            const selectedRepo = this.value;
+            updateBackendConfig({ repository: selectedRepo });
+            document.getElementById('status-repository').textContent = selectedRepo;
+        });
+
+
+        function showRepositoryNameModal(title, message, onConfirm) {
+            document.getElementById('repo-modal-title').textContent = title;
+            document.getElementById('repo-modal-message').textContent = message;
+            document.getElementById('new-repository-name').value = '';
+            document.getElementById('repository-name-modal').style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('new-repository-name').focus();
+            }, 100);
+            
+            const confirmBtn = document.getElementById('repo-modal-confirm');
+            const cancelBtn = document.getElementById('repo-modal-cancel');
+            const inputField = document.getElementById('new-repository-name');
+            
+            const handleConfirm = () => {
+                const repoName = inputField.value.trim();
+                if (!repoName) {
+                    showAlert('warning', 'Please enter a repository name');
+                    return;
+                }
+                
+                document.getElementById('repository-name-modal').style.display = 'none';
+                onConfirm(repoName);
+                cleanup();
+            };
+            
+            const handleCancel = () => {
+                document.getElementById('repository-name-modal').style.display = 'none';
+                cleanup();
+            };
+            
+            const handleEnter = (e) => {
+                if (e.key === 'Enter') {
+                    handleConfirm();
+                }
+            };
+            
+            const cleanup = () => {
+                confirmBtn.removeEventListener('click', handleConfirm);
+                cancelBtn.removeEventListener('click', handleCancel);
+                inputField.removeEventListener('keypress', handleEnter);
+            };
+            
+            confirmBtn.addEventListener('click', handleConfirm);
+            cancelBtn.addEventListener('click', handleCancel);
+            inputField.addEventListener('keypress', handleEnter);
+        }
+
+		document.getElementById('export-btn').addEventListener('click', function() {
+            if (currentConfig.repository === 'Not Selected') {
+                showAlert('warning', 'Please select a repository first');
+                return;
+            }
+            
+            window.location.href = '/api/export-ontology';
+        });
+
+        document.getElementById('import-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const createRepo = document.getElementById('create-repo-import').checked;
+            
+            if (createRepo) {
+                showRepositoryNameModal(
+                    'Create Repository for Import',
+                    'Enter the name for the new repository where the ontology will be imported:',
+                    (repoName) => {
+                        performImport(repoName);
+                    }
+                );
+            } else {
+                if (currentConfig.repository === 'Not Selected') {
+                    showAlert('warning', 'Please select a repository first');
+                    return;
+                }
+                performImport(null);
+            }
+        });
+
+        function performImport(newRepoName) {
+            const formData = new FormData(document.getElementById('import-form'));
+            
+            formData.delete('create_repository');
+            formData.delete('new_repository_name');
+            
+            const submitBtn = document.querySelector('#import-form button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            
+            if (newRepoName) {
+                submitBtn.innerHTML = '<div class="spinner"></div><span style="margin-left: 0.5rem;">Creating repository...</span>';
+                
+                fetch('/api/graphdb/create-repository', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        repository: newRepoName
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateBackendConfig({ repository: newRepoName });
+                        
+                        submitBtn.innerHTML = '<div class="spinner"></div><span style="margin-left: 0.5rem;">Importing...</span>';
+                        
+                        return fetch('/api/import-ontology', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                    } else {
+                        throw new Error(data.message || 'Failed to create repository');
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    if (data.status === 'success') {
+                        showAlert('success', 'Repository created and ontology imported successfully!');
+                        
+                        if (data.config) {
+                            currentConfig = data.config;
+                            updateFormFields();
+                            refreshRepositories();
+                        }
+                        
+                        refreshStatus();
+                    } else {
+                        showAlert('danger', `Import failed: ${data.error || data.message}`);
+                    }
+                })
+                .catch(error => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    showAlert('danger', `Error: ${error.message}`);
+                    console.error('Import with repository creation error:', error);
+                });
+            } else {
+                submitBtn.innerHTML = '<div class="spinner"></div><span style="margin-left: 0.5rem;">Importing...</span>';
+                
+                fetch('/api/import-ontology', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    if (data.status === 'success') {
+                        showAlert('success', 'Ontology imported successfully!');
+                        
+                        if (data.config) {
+                            currentConfig = data.config;
+                            updateFormFields();
+                            refreshRepositories();
+                        }
+                        
+                        refreshStatus();
+                    } else {
+                        showAlert('danger', `Import failed: ${data.error || data.message}`);
+                    }
+                })
+                .catch(error => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    showAlert('danger', `Import error: ${error.message}`);
+                    console.error('Import error:', error);
+                });
+            }
+        }
+
+        document.getElementById('create-base-btn').addEventListener('click', function() {
+            const createRepo = document.getElementById('create-repo-base').checked;
+            
+            if (createRepo) {
+                showRepositoryNameModal(
+                    'Create Repository for Base Ontology',
+                    'Enter the name for the new repository where the base ontology will be created:',
+                    (repoName) => {
+                        performCreateBaseOntology(repoName);
+                    }
+                );
+            } else {
+                if (currentConfig.repository === 'Not Selected') {
+                    showAlert('warning', 'Please select a repository first');
+                    return;
+                }
+                performCreateBaseOntology(null);
+            }
+        });
+
+        function performCreateBaseOntology(newRepoName) {
+            const submitBtn = document.getElementById('create-base-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner"></div><span style="margin-left: 0.5rem;">Creating...</span>';
+            submitBtn.disabled = true;
+
+            const requestData = {
+                create_repository: !!newRepoName,
+            };
+
+            if (newRepoName) {
+                requestData.new_repository_name = newRepoName;
+            }
+
+            fetch('/api/create-base-ontology', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+
+                if (data.status === 'success') {
+                    showAlert('success', 'Base ontology created successfully!');
+                    
+                    if (data.config) {
+                        currentConfig = data.config;
+                        updateFormFields();
+                        refreshRepositories();
+                    }
+                    
+                    refreshStatus();
+                } else {
+                    showAlert('danger', `Creation failed: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                showAlert('danger', `Creation error: ${error.message}`);
+            });
+        }
+
+        document.getElementById('create-repo-btn').addEventListener('click', function() {
+            const repoName = document.getElementById('new-repo-name').value.trim();
+            if (!repoName) {
+                showAlert('warning', 'Please enter a repository name');
+                return;
+            }
+            
+            fetch('/api/graphdb/create-repository', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    repository: repoName
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showAlert('success', `Repository '${repoName}' created successfully!`);
+                    document.getElementById('new-repo-name').value = '';
+                    refreshRepositories();
+                } else {
+                    showAlert('danger', `Failed to create repository: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                showAlert('danger', `Error creating repository: ${error.message}`);
+            });
+        });
+
+        document.getElementById('clear-repo-btn').addEventListener('click', function() {
+            if (currentConfig.repository === 'Not Selected') {
+                showAlert('warning', 'Please select a repository first');
+                return;
+            }
+            
+            showConfirmationModal(
+                'Clear Repository',
+                `Are you sure you want to clear all data from repository '${currentConfig.repository}'? This action cannot be undone.`,
+                () => {
+                    fetch('/api/clear-repository', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({}),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            showAlert('success', 'Repository cleared successfully!');
+                            refreshStatus();
+                        } else {
+                            showAlert('danger', `Failed to clear repository: ${data.message}`);
+                        }
+                    })
+                    .catch(error => {
+                        showAlert('danger', `Error clearing repository: ${error.message}`);
+                    });
+                }
+            );
+        });
+
+        document.getElementById('delete-repo-btn').addEventListener('click', function () {
+            if (currentConfig.repository === 'Not Selected') {
+                showAlert('warning', 'Please select a repository first');
+                return;
+            }
+
+            showConfirmationModal(
+                'Delete Repository',
+                `Are you sure you want to permanently delete repository '${currentConfig.repository}'? This action cannot be undone.`,
+                () => {
+                    fetch('/api/delete-repository', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            host: currentConfig.host,
+                            port: currentConfig.port,
+                            repository: currentConfig.repository,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                showAlert('success', `Repository '${currentConfig.repository}' deleted successfully!`);
+                                currentConfig.repository = 'Not Selected';
+                                updateBackendConfig({ repository: 'Not Selected' });
+                                refreshRepositories();
+                                refreshStatus();
+                            } else {
+                                showAlert('danger', `Failed to delete repository: ${data.message}`);
+                            }
+                        })
+                        .catch(error => {
+                            showAlert('danger', `Error deleting repository: ${error.message}`);
+                        });
+                }
+            );
+        });
+
+        document.getElementById('refresh-status').addEventListener('click', refreshStatus);
+
+        function refreshStatus() {
+            if (currentConfig.repository === 'Not Selected') {
+                document.getElementById('status-triples').textContent = '-';
+                document.getElementById('status-updated').textContent = '-';
+                return;
+            }
+            
+            fetch('/api/statistics')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status-triples').textContent = data.total_triples || '-';
+                document.getElementById('status-updated').textContent = new Date().toLocaleString();
+            })
+            .catch(error => {
+                console.error('Error refreshing status:', error);
+                document.getElementById('status-triples').textContent = 'Error';
+            });
+        }
+
+        function showAlert(type, message) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.style.position = 'fixed';
+            alert.style.top = '1rem';
+            alert.style.right = '1rem';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            alert.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-triangle' : 'info-circle'}"></i><span>${message}</span>`;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            }, 5000);
+        }
+
+        function showConfirmationModal(title, message, onConfirm) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('confirmation-modal').style.display = 'flex';
+            
+            const confirmBtn = document.getElementById('modal-confirm');
+            const cancelBtn = document.getElementById('modal-cancel');
+            
+            const handleConfirm = () => {
+                document.getElementById('confirmation-modal').style.display = 'none';
+                onConfirm();
+                confirmBtn.removeEventListener('click', handleConfirm);
+                cancelBtn.removeEventListener('click', handleCancel);
+            };
+            
+            const handleCancel = () => {
+                document.getElementById('confirmation-modal').style.display = 'none';
+                confirmBtn.removeEventListener('click', handleConfirm);
+                cancelBtn.removeEventListener('click', handleCancel);
+            };
+            
+            confirmBtn.addEventListener('click', handleConfirm);
+            cancelBtn.addEventListener('click', handleCancel);
+        }
+
+        loadCurrentConfig();
+        refreshRepositories();
+        refreshStatus();
+    });
+</script>
+{% endblock %}

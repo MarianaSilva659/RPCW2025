@@ -1,0 +1,569 @@
+{% extends "base.html" %}
+
+{% block title %}Explore - Space Ontology{% endblock %}
+
+{% block extra_css %}
+<style>
+    .classes-container {
+        height: 400px;
+        overflow-y: auto;
+    }
+    
+    .entity-card {
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5rem;
+        gap: 0.5rem;
+    }
+    
+    .pagination-button {
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        background-color: var(--bg-elevated);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all var(--transition);
+        border: 1px solid var(--border);
+    }
+    
+    .pagination-button:hover {
+        background-color: var(--bg-highlight);
+    }
+    
+    .pagination-button.active {
+        background-color: var(--accent);
+        color: white;
+        border-color: var(--accent);
+    }
+    
+    .pagination-button.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    .stats-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: var(--bg-elevated);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition);
+    }
+    
+    .stats-item:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .stats-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stats-label {
+        color: var(--text-tertiary);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section style="padding: 2rem 0;">
+    <h1 style="margin-bottom: 0.5rem;">
+        <i class="bi bi-search" style="color: var(--accent);"></i>
+        <span>Explore Space Ontology</span>
+    </h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Navigate
+        through
+        classes, instances, and relationships in the space ontology</p>
+
+    <div class="search-container">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" id="search-input" class="search-input"
+            placeholder="Search entities...">
+        <div id="search-results" class="search-results"
+            style="display: none;"></div>
+    </div>
+
+    <div class="grid grid-3" style="grid-template-columns: 1fr 2fr;">
+        <div>
+            <div class="card slide-up"
+                style="animation-delay: 0.1s; margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-diagram-2"></i>
+                        <span>Classes</span>
+                    </h2>
+                </div>
+                <div class="classes-container" id="classes-list">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; height: 200px;">
+                        <div style="text-align: center;">
+                            <div class="spinner"></div>
+                            <p
+                                style="color: var(--text-tertiary); margin-top: 1rem;">Loading
+                                classes...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card slide-up" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Statistics</span>
+                    </h2>
+                </div>
+                <div class="card-body" id="statistics-container">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; height: 150px;">
+                        <div style="text-align: center;">
+                            <div class="spinner"></div>
+                            <p
+                                style="color: var(--text-tertiary); margin-top: 1rem;">Loading
+                                statistics...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card slide-up" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-collection"></i>
+                        <span>Instances</span>
+                    </h2>
+                </div>
+                <div class="card-body" id="instances-container">
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                        <i class="bi bi-arrow-left-circle"
+                            style="font-size: 3rem; color: var(--text-tertiary); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--text-tertiary);">Select a class
+                            to view its
+                            instances</p>
+                    </div>
+                </div>
+                <div id="pagination-container" class="pagination"
+                    style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        let currentClass = null;
+        let currentPage = 1;
+        let totalPages = 1;
+        const itemsPerPage = 30;
+        
+        fetch('/api/classes')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load classes');
+                }
+                return response.json();
+            })
+            .then(classes => {
+                const classesList = document.getElementById('classes-list');
+                classesList.innerHTML = '';
+                
+                if (classes.length === 0) {
+                    classesList.innerHTML = `
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                            <p style="color: var(--text-tertiary);">No classes found</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const listGroup = document.createElement('div');
+                listGroup.className = 'list-group';
+                
+                classes.forEach(cls => {
+                    const item = document.createElement('div');
+                    item.className = 'list-group-item';
+                    item.textContent = cls.label || cls.uri.split('#').pop();
+                    item.dataset.uri = cls.uri;
+                    
+                    item.addEventListener('click', function() {
+                        document.querySelectorAll('.list-group-item').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        currentClass = cls.uri;
+                        currentPage = 1;
+                        loadInstances(cls.uri, currentPage);
+                    });
+                    
+                    listGroup.appendChild(item);
+                });
+                
+                classesList.appendChild(listGroup);
+            })
+            .catch(error => {
+                document.getElementById('classes-list').innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                        <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--danger);">Error loading classes</p>
+                    </div>
+                `;
+                console.error('Error loading classes:', error);
+            });
+        
+        fetch('/api/statistics')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load statistics');
+                }
+                return response.json();
+            })
+            .then(stats => {
+                const statsContainer = document.getElementById('statistics-container');
+                statsContainer.innerHTML = '';
+                
+                const triplesStats = document.createElement('div');
+                triplesStats.className = 'stats-item';
+                triplesStats.innerHTML = `
+                    <div class="stats-value">${stats.total_triples}</div>
+                    <div class="stats-label">Total Triples</div>
+                `;
+                
+                statsContainer.appendChild(triplesStats);
+                
+                if (stats.classes && Object.keys(stats.classes).length > 0) {
+                    const classStats = document.createElement('div');
+                    classStats.style.marginTop = '1.5rem';
+                    
+                    classStats.innerHTML = '<h3 style="font-size: 1rem; margin-bottom: 1rem;">Instances by Class</h3>';
+                    
+                    const classItems = document.createElement('div');
+                    classItems.style.display = 'flex';
+                    classItems.style.flexDirection = 'column';
+                    classItems.style.gap = '0.75rem';
+                    
+                    Object.entries(stats.classes).forEach(([className, count]) => {
+                        const item = document.createElement('div');
+                        item.style.display = 'flex';
+                        item.style.flexDirection = 'column';
+                        item.style.gap = '0.25rem';
+                        
+                        const header = document.createElement('div');
+                        header.style.display = 'flex';
+                        header.style.justifyContent = 'space-between';
+                        header.style.alignItems = 'center';
+                        
+                        const name = document.createElement('span');
+                        name.style.color = 'var(--text-secondary)';
+                        name.style.fontSize = '0.875rem';
+                        name.textContent = className;
+                        
+                        const countBadge = document.createElement('span');
+                        countBadge.className = 'badge badge-primary';
+                        countBadge.textContent = count;
+                        
+                        header.appendChild(name);
+                        header.appendChild(countBadge);
+                        
+                        const progress = document.createElement('div');
+                        progress.style.height = '4px';
+                        progress.style.width = '100%';
+                        progress.style.backgroundColor = 'var(--bg-elevated)';
+                        progress.style.borderRadius = '2px';
+                        progress.style.overflow = 'hidden';
+                        
+                        const progressBar = document.createElement('div');
+                        progressBar.style.height = '100%';
+                        progressBar.style.width = `${Math.min(count / 5, 100)}%`;
+                        progressBar.style.backgroundColor = 'var(--accent)';
+                        
+                        progress.appendChild(progressBar);
+                        
+                        item.appendChild(header);
+                        item.appendChild(progress);
+                        
+                        classItems.appendChild(item);
+                    });
+                    
+                    classStats.appendChild(classItems);
+                    statsContainer.appendChild(classStats);
+                }
+            })
+            .catch(error => {
+                document.getElementById('statistics-container').innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 150px;">
+                        <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--danger);">Error loading statistics</p>
+                    </div>
+                `;
+                console.error('Error loading statistics:', error);
+            });
+        
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        searchInput.addEventListener('input', function() {
+            const term = this.value.trim();
+            
+            if (term.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            fetch(`/api/search?term=${encodeURIComponent(term)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Search failed');
+                    }
+                    return response.json();
+                })
+                .then(results => {
+                    searchResults.innerHTML = '';
+                    
+                    if (results.length === 0) {
+                        searchResults.innerHTML = `
+                            <div class="search-result-item">
+                                <p style="color: var(--text-tertiary); text-align: center;">No results found</p>
+                            </div>
+                        `;
+                    } else {
+                        results.forEach(result => {
+                            const item = document.createElement('div');
+                            item.className = 'search-result-item';
+                            item.innerHTML = `
+                                <div class="search-result-title">${result.name}</div>
+                                <div class="search-result-subtitle">${result.type}</div>
+                            `;
+                            
+                            item.addEventListener('click', function() {
+                                
+                                window.location.href = `/entity?uri=${encodeURIComponent(result.uri)}`;
+                                searchResults.style.display = 'none';
+                                searchInput.value = result.name;
+                            });
+                            
+                            searchResults.appendChild(item);
+                        });
+                    }
+                    
+                    searchResults.style.display = 'block';
+                })
+                .catch(error => {
+                    searchResults.innerHTML = `
+                        <div class="search-result-item">
+                            <p style="color: var(--danger); text-align: center;">Error: ${error.message}</p>
+                        </div>
+                    `;
+                    searchResults.style.display = 'block';
+                    console.error('Search error:', error);
+                });
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+        
+        function loadInstances(classUri, page = 1) {
+            const instancesContainer = document.getElementById('instances-container');
+            const paginationContainer = document.getElementById('pagination-container');
+            
+            instancesContainer.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 200px;">
+                    <div style="text-align: center;">
+                        <div class="spinner"></div>
+                        <p style="color: var(--text-tertiary); margin-top: 1rem;">Loading instances...</p>
+                    </div>
+                </div>
+            `;
+            
+            paginationContainer.style.display = 'none';
+            
+            fetch(`/api/instances?class=${encodeURIComponent(classUri)}&page=${page}&limit=${itemsPerPage}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load instances');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const instances = data.instances || [];
+                    totalPages = data.total_pages || 1;
+                    
+                    instancesContainer.innerHTML = '';
+                    
+                    if (instances.length === 0) {
+                        instancesContainer.innerHTML = `
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                                <p style="color: var(--text-tertiary);">No instances found for this class</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    const entityGrid = document.createElement('div');
+                    entityGrid.className = 'entity-grid';
+                    
+                    instances.forEach(instance => {
+                        const card = document.createElement('div');
+                        card.className = 'entity-card';
+                        
+                        const icon = document.createElement('div');
+                        icon.className = 'entity-icon';
+                        icon.innerHTML = '<i class="bi bi-box"></i>';
+                        
+                        const name = document.createElement('div');
+                        name.className = 'entity-name';
+                        name.textContent = instance.label || instance.uri.split('#').pop();
+                        
+                        card.appendChild(icon);
+                        card.appendChild(name);
+                        
+                        card.addEventListener('click', function() {
+                            
+                            window.location.href = `/entity?uri=${encodeURIComponent(instance.uri)}`;
+                        });
+                        
+                        entityGrid.appendChild(card);
+                    });
+                    
+                    instancesContainer.appendChild(entityGrid);
+                    
+                    
+                    updatePagination(page, totalPages);
+                })
+                .catch(error => {
+                    instancesContainer.innerHTML = `
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                            <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                            <p style="color: var(--danger);">Error loading instances: ${error.message}</p>
+                        </div>
+                    `;
+                    console.error('Error loading instances:', error);
+                });
+        }
+        
+        function updatePagination(currentPage, totalPages) {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            
+            if (totalPages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+            
+            paginationContainer.style.display = 'flex';
+            
+            
+            const prevButton = document.createElement('div');
+            prevButton.className = `pagination-button ${currentPage === 1 ? 'disabled' : ''}`;
+            prevButton.innerHTML = '<i class="bi bi-chevron-left"></i>';
+            if (currentPage > 1) {
+                prevButton.addEventListener('click', function() {
+                    if (currentPage > 1) {
+                        loadInstances(currentClass, currentPage - 1);
+                        currentPage--;
+                    }
+                });
+            }
+            paginationContainer.appendChild(prevButton);
+            
+            
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+            
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            
+            
+            if (startPage > 1) {
+                const firstPageButton = document.createElement('div');
+                firstPageButton.className = 'pagination-button';
+                firstPageButton.textContent = '1';
+                firstPageButton.addEventListener('click', function() {
+                    loadInstances(currentClass, 1);
+                    currentPage = 1;
+                });
+                paginationContainer.appendChild(firstPageButton);
+                
+                if (startPage > 2) {
+                    const ellipsis = document.createElement('div');
+                    ellipsis.className = 'pagination-button disabled';
+                    ellipsis.textContent = '...';
+                    paginationContainer.appendChild(ellipsis);
+                }
+            }
+            
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('div');
+                pageButton.className = `pagination-button ${i === currentPage ? 'active' : ''}`;
+                pageButton.textContent = i;
+                
+                if (i !== currentPage) {
+                    pageButton.addEventListener('click', function() {
+                        loadInstances(currentClass, i);
+                        currentPage = i;
+                    });
+                }
+                
+                paginationContainer.appendChild(pageButton);
+            }
+            
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsis = document.createElement('div');
+                    ellipsis.className = 'pagination-button disabled';
+                    ellipsis.textContent = '...';
+                    paginationContainer.appendChild(ellipsis);
+                }
+                
+                const lastPageButton = document.createElement('div');
+                lastPageButton.className = 'pagination-button';
+                lastPageButton.textContent = totalPages;
+                lastPageButton.addEventListener('click', function() {
+                    loadInstances(currentClass, totalPages);
+                    currentPage = totalPages;
+                });
+                paginationContainer.appendChild(lastPageButton);
+            }
+            
+            
+            const nextButton = document.createElement('div');
+            nextButton.className = `pagination-button ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextButton.innerHTML = '<i class="bi bi-chevron-right"></i>';
+            if (currentPage < totalPages) {
+                nextButton.addEventListener('click', function() {
+                    if (currentPage < totalPages) {
+                        loadInstances(currentClass, currentPage + 1);
+                        currentPage++;
+                    }
+                });
+            }
+            paginationContainer.appendChild(nextButton);
+        }
+    });
+</script>
+{% endblock %}

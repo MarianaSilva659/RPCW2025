@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}Space Ontology{% endblock %}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet">
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+		<link rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}">
+		{% block extra_css %}{% endblock %}
+	</head>
+	<body>
+		<header class="header">
+			<div class="container">
+				<div class="header-inner">
+					<a href="/" class="logo">
+						<i class="bi bi-stars"></i>
+						<span>Space Ontology</span>
+					</a>
+
+					<button class="mobile-menu-toggle" id="mobileMenuToggle">
+						<i class="bi bi-list"></i>
+					</button>
+
+					<nav class="nav" id="mainNav">
+						<a href="/" class="nav-link">
+							<i class="bi bi-house"></i>
+							<span>Home</span>
+						</a>
+						<a href="/explore" class="nav-link">
+							<i class="bi bi-search"></i>
+							<span>Explore</span>
+						</a>
+						<a href="/sparql" class="nav-link">
+							<i class="bi bi-code-slash"></i>
+							<span>SPARQL</span>
+						</a>
+						<a href="/graph" class="nav-link">
+							<i class="bi bi-diagram-3"></i>
+							<span>Graph</span>
+						</a>
+						<a href="/management" class="nav-link">
+							<i class="bi bi-gear"></i>
+							<span>Management</span>
+						</a>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<main class="container">
+			{% block content %}{% endblock %}
+		</main>
+
+		<footer class="footer">
+			<div class="container">
+				<p class="footer-text">Space Ontology - Exploring the universe through
+					semantic technologies</p>
+			</div>
+		</footer>
+
+		<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPath || 
+                    (href !== '/' && currentPath.startsWith(href))) {
+                    link.classList.add('active');
+                }
+            });
+            
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('open');
+                    const isOpen = mainNav.classList.contains('open');
+                    mobileMenuToggle.innerHTML = isOpen ? 
+                        '<i class="bi bi-x-lg"></i>' : 
+                        '<i class="bi bi-list"></i>';
+                });
+            }
+        });
+    </script>
+		{% block extra_js %}{% endblock %}
+	</body>
+</html>

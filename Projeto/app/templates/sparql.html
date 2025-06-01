@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block title %}SPARQL - Space Ontology{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+<style>
+    .CodeMirror.CodeMirror {
+        height: 300px;
+        border-radius: var(--radius-lg);
+        font-family: var(--font-mono);
+        border: 1px solid var(--border);
+    }
+
+    .CodeMirror.CodeMirror {
+	  background-color: #0B0F17 !important;
+	  border: 1px solid #0B0F17 !important;
+	}
+
+	.CodeMirror-gutters.CodeMirror-gutters {
+        background-color: #0B0F17 !important;
+    }
+    
+    .example-query {
+        cursor: pointer;
+        transition: all var(--transition);
+    }
+    
+    .example-query:hover {
+        background-color: var(--bg-highlight);
+    }
+    
+    .example-query-title {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .example-query-code {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-light);
+        white-space: pre-wrap;
+        max-height: 100px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: var(--radius-sm);
+    }
+    
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .results-table th {
+        background-color: var(--bg-elevated);
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: var(--text-primary);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    .results-table td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+    
+    .results-table tr:hover td {
+        background-color: var(--bg-highlight);
+        color: var(--text-primary);
+    }
+    
+    .results-container {
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section style="padding: 2rem 0;">
+    <h1 style="margin-bottom: 0.5rem;">
+        <i class="bi bi-code-slash" style="color: var(--accent);"></i>
+        <span>SPARQL Queries</span>
+    </h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Execute SPARQL
+        queries on the space ontology</p>
+
+    <div class="grid grid-3" style="grid-template-columns: 2fr 1fr;">
+        <div>
+            <div class="card slide-up"
+                style="animation-delay: 0.1s; margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-code"></i>
+                        <span>SPARQL Editor</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <textarea
+                        id="sparql-editor">PREFIX space: <http://www.semanticweb.org/ontologies/space#>
+SELECT ?planet ?name
+WHERE {
+  ?planet a space:Planet .
+  ?planet space:name ?name .
+}</textarea>
+                </div>
+                <div class="card-footer"
+                    style="display: flex; justify-content: flex-end;">
+                    <button id="execute-query" class="btn btn-primary">
+                        <i class="bi bi-play-fill"></i>
+                        <span>Execute Query</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card slide-up" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-table"></i>
+                        <span>Results</span>
+                    </h2>
+                    <div id="results-count"
+                        style="color: var(--text-tertiary); font-size: 0.875rem;"></div>
+                </div>
+                <div class="card-body" id="results-container">
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                        <i class="bi bi-arrow-up-circle"
+                            style="font-size: 3rem; color: var(--text-tertiary); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--text-tertiary);">Execute a query
+                            to see results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card slide-up" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <h2 class="card-header-title">
+                        <i class="bi bi-bookmark"></i>
+                        <span>Example Queries</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="example-query" id="example-planets">
+                        <div class="example-query-title">List all planets</div>
+                        <div class="example-query-code">PREFIX space:
+                            &lt;http://www.semanticweb.org/ontologies/space#&gt;
+                            SELECT ?planet ?name
+                            WHERE {
+                            ?planet a space:Planet .
+                            ?planet space:name ?name .
+                            }</div>
+                    </div>
+
+                    <hr style="margin: 1.5rem 0; border-color: var(--border);">
+
+                    <div class="example-query" id="example-missions">
+                        <div class="example-query-title">Find all space missions
+                            and their
+                            agencies</div>
+                        <div class="example-query-code">PREFIX space:
+                            &lt;http://www.semanticweb.org/ontologies/space#&gt;
+                            SELECT ?mission ?missionName ?agency ?agencyName
+                            WHERE {
+                            ?mission a space:SpaceMission .
+                            ?mission space:name ?missionName .
+                            ?mission space:launchedBy ?agency .
+                            ?agency space:name ?agencyName .
+                            }</div>
+                    </div>
+
+                    <hr style="margin: 1.5rem 0; border-color: var(--border);">
+
+                    <div class="example-query" id="example-astronauts">
+                        <div class="example-query-title">List astronauts and
+                            their missions</div>
+                        <div class="example-query-code">PREFIX space:
+                            &lt;http://www.semanticweb.org/ontologies/space#&gt;
+                            SELECT ?astronaut ?astronautName ?mission
+                            ?missionName
+                            WHERE {
+                            ?astronaut a space:Astronaut .
+                            ?astronaut space:name ?astronautName .
+                            ?astronaut space:participatedIn ?mission .
+                            ?mission space:name ?missionName .
+                            }</div>
+                    </div>
+
+                    <hr style="margin: 1.5rem 0; border-color: var(--border);">
+
+                    <div class="example-query" id="example-insert">
+                        <div class="example-query-title">Insert Planet</div>
+                        <div class="example-query-code">PREFIX space:
+                            &lt;http://www.semanticweb.org/ontologies/space#&gt;
+
+                            INSERT DATA {
+                            space:FakePlanet123 a space:Planet ;
+                            space:name "Fake Planet" ;
+                            space:mass 5.972e24 ;
+                            space:radius 6371 ;
+                            space:belongsTo space:MilkyWay .
+                            }</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sparql/sparql.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editor = CodeMirror.fromTextArea(document.getElementById('sparql-editor'), {
+            mode: 'application/sparql-query',
+            theme: 'monokai',
+            lineNumbers: true,
+            lineWrapping: true,
+            tabSize: 2,
+            autofocus: true
+        });
+        
+        document.getElementById('example-planets').addEventListener('click', function() {
+            editor.setValue(this.querySelector('.example-query-code').textContent);
+            editor.focus();
+        });
+        
+        document.getElementById('example-missions').addEventListener('click', function() {
+            editor.setValue(this.querySelector('.example-query-code').textContent);
+            editor.focus();
+        });
+        
+        document.getElementById('example-astronauts').addEventListener('click', function() {
+            editor.setValue(this.querySelector('.example-query-code').textContent);
+            editor.focus();
+        });
+
+        document.getElementById('example-insert').addEventListener('click', function() {
+            editor.setValue(this.querySelector('.example-query-code').textContent);
+            editor.focus();
+        });
+        
+        document.getElementById('execute-query').addEventListener('click', function() {
+            const query = editor.getValue();
+            const resultsContainer = document.getElementById('results-container');
+            const resultsCount = document.getElementById('results-count');
+            
+            if (!query.trim()) {
+                resultsContainer.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                        <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: var(--warning); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--warning);">Please enter a SPARQL query</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            resultsContainer.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                    <div class="spinner"></div>
+                    <p style="color: var(--text-tertiary); margin-top: 1rem;">Executing query...</p>
+                </div>
+            `;
+            
+            fetch('/api/sparql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: query }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || 'Query execution failed');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                resultsContainer.innerHTML = '';
+                
+                if (!data.results || data.results.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                            <i class="bi bi-info-circle" style="font-size: 2rem; color: var(--text-tertiary); margin-bottom: 1rem;"></i>
+                            <p style="color: var(--text-tertiary);">No results found</p>
+                        </div>
+                    `;
+                    resultsCount.textContent = '0 results';
+                    return;
+                }
+                
+                resultsCount.textContent = `${data.results.length} results`;
+                
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'results-container';
+                
+                const table = document.createElement('table');
+                table.className = 'results-table';
+                
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                
+                Object.keys(data.results[0]).forEach(key => {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    headerRow.appendChild(th);
+                });
+                
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+                
+                const tbody = document.createElement('tbody');
+                
+                data.results.forEach(result => {
+                    const row = document.createElement('tr');
+                    
+                    Object.values(result).forEach(value => {
+                        const td = document.createElement('td');
+                        td.textContent = value;
+                        row.appendChild(td);
+                    });
+
+                    row.addEventListener('click', () => {
+                        let uri = null;
+
+                        for (const key in result) {
+                            if (result[key] && typeof result[key] === 'object' && result[key].uri) {
+                                uri = result[key].uri;
+                                break;
+                            }
+                        }
+
+                        if (uri) {
+                            window.location.href = `/entity?uri=${encodeURIComponent(uri)}`;
+                        } else {
+                            console.warn('Missing or invalid URI in result:', result);
+                        }
+                    });
+                    
+                    tbody.appendChild(row);
+                });
+                
+                table.appendChild(tbody);
+                tableContainer.appendChild(table);
+                resultsContainer.appendChild(tableContainer);
+            })
+            .catch(error => {
+                resultsContainer.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px;">
+                        <i class="bi bi-exclamation-triangle" style="font-size: 2rem; color: var(--danger); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--danger);">Error: ${error.message}</p>
+                    </div>
+                `;
+                resultsCount.textContent = '';
+                console.error('Query error:', error);
+            });
+        });
+    });
+</script>
+{% endblock %}

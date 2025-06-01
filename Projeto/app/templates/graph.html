@@ -1,0 +1,643 @@
+{% extends "base.html" %}
+
+{% block title %}Visualização Gráfica - Ontologia Espacial{% endblock %}
+
+{% block extra_css %}
+<style>
+    #graph-container {
+        width: 100%;
+        height: 700px;
+        border: 1px solid var(--bg-border);
+        border-radius: 4px;
+        position: relative;
+    }
+    .legend {
+        margin-top: 20px;
+    }
+    .legend-item {
+        display: inline-block;
+        margin-right: 15px;
+    }
+    .legend-color {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+    .controls {
+        margin-bottom: 15px;
+    }
+    .node-info {
+        position: absolute;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        max-width: 300px;
+        z-index: 1000;
+        display: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        border-radius: 4px;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        text-align: center;
+    }
+    .loading-overlay.visible {
+        display: flex;
+        opacity: 1;
+    }
+    .loading-spinner {
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-top: 5px solid var(--accent);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: auto;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .slider-container {
+        margin-top: 10px;
+        width: 100%;
+    }
+    .slider-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    .slider-value {
+        font-weight: bold;
+    }
+    input[type="range"] {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+<section style="padding: 2rem 0;">
+	<h1 style="margin-bottom: 0.5rem;">
+        <i class="bi bi-diagram-3" style="color: var(--accent);"></i>
+        <span>Graph Visualization</span>
+    </h1>
+        <p style="color: var(--text-secondary); margin-bottom: 0.25rem;">Explore
+            the relationships between entities in the space ontology</p>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h5 mb-0">Controls</h2>
+            </div>
+            <div class="card-body">
+                <div class="controls">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="filter-type">Filter by Type:</label>
+                                <select id="filter-type" class="form-select">
+                                    <option value="all">All</option>
+                                    <option value="class">Classes</option>
+                                    <option value="Planet">Planets</option>
+                                    <option value="Star">Stars</option>
+                                    <option value="Moon">Moons</option>
+                                    <option value="SpaceMission">Space
+                                        Missions</option>
+                                    <option
+                                        value="Astronaut">Astronauts</option>
+                                    <option value="SpaceAgency">Space
+                                        Agencies</option>
+                                    <option
+                                        value="Spacecraft">Spacecraft</option>
+                                    <option value="Asteroid">Asteroids</option>
+                                    <option value="Comet">Comets</option>
+                                    <option value="Galaxy">Galaxies</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="search-node">Search:</label>
+                                <input type="text" id="search-node"
+                                    class="form-control"
+                                    placeholder="Type entity name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="layout-type">Layout Type:</label>
+                                <select id="layout-type" class="form-select">
+                                    <option value="force">Force
+                                        Directed</option>
+                                    <option value="circle">Circular</option>
+                                    <option value="grid">Grid</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Instances per Type:</label>
+                                <div class="slider-container">
+                                    <div class="slider-label">
+                                        <span>5</span>
+                                        <span class="slider-value"
+                                            id="limit-value">25</span>
+                                        <span>300</span>
+                                    </div>
+                                    <input type="range" class="form-range"
+                                        id="limit-slider" min="5" max="300"
+                                        step="5" value="25">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button id="reload-graph" class="btn btn-primary">
+                                <i class="bi bi-arrow-clockwise"></i> Reload
+                                Graph
+                            </button>
+                            <button id="toggle-labels"
+                                class="btn btn-secondary ms-2">
+                                <i class="bi bi-tag"></i> Toggle Labels
+                            </button>
+                            <button id="toggle-physics"
+                                class="btn btn-secondary ms-2">
+                                <i class="bi bi-gear"></i> Toggle Physics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend mt-3">
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #4e79a7;"></span>
+                        <span>Class</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #f28e2c;"></span>
+                        <span>Planet</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #e15759;"></span>
+                        <span>Star</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #76b7b2;"></span>
+                        <span>Moon</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #59a14f;"></span>
+                        <span>Space Mission</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #edc949;"></span>
+                        <span>Astronaut</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #af7aa1;"></span>
+                        <span>Space Agency</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #ff9da7;"></span>
+                        <span>Spacecraft</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #9c755f;"></span>
+                        <span>Asteroid</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #bab0ab;"></span>
+                        <span>Comet</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color"
+                            style="background-color: #a0cbe8;"></span>
+                        <span>Galaxy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2 class="h5 mb-0">Ontology Graph</h2>
+            </div>
+            <div class="card-body position-relative">
+                <div id="node-info" class="node-info"></div>
+                <div id="graph-container">
+                    <div id="loading-overlay" class="loading-overlay">
+                        <div>
+                            <div class="loading-spinner"></div>
+                            <p class="mt-3 text-white">Loading graph data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let simulation = null;
+        let svg = null;
+        let g = null;
+        let node = null;
+        let link = null;
+        let linkLabel = null;
+        let nodeLabel = null;
+        let showLabels = true;
+        let physicsEnabled = true;
+        let isLoading = false;
+        
+        function showLoading() {
+            if (!isLoading) {
+                isLoading = true;
+                $('#loading-overlay').addClass('visible');
+            }
+        }
+        
+        function hideLoading() {
+            if (isLoading) {
+                isLoading = false;
+                $('#loading-overlay').removeClass('visible');
+                
+                setTimeout(function() {
+                    if (!isLoading) {
+                        $('#loading-overlay').css('display', 'none');
+                    }
+                }, 300);
+            }
+        }
+        
+        $('#limit-slider').on('input', function() {
+            $('#limit-value').text($(this).val());
+        });
+        
+        loadGraphData();
+        
+        $('#reload-graph').click(function() {
+            loadGraphData();
+        });
+        
+        $('#toggle-labels').click(function() {
+            showLabels = !showLabels;
+            if (nodeLabel) {
+                nodeLabel.style('display', showLabels ? 'block' : 'none');
+                linkLabel.style('display', showLabels ? 'block' : 'none');
+            }
+        });
+        
+        $('#toggle-physics').click(function() {
+            physicsEnabled = !physicsEnabled;
+            if (simulation) {
+                if (physicsEnabled) {
+                    simulation.alphaTarget(0.3).restart();
+                } else {
+                    simulation.stop();
+                }
+            }
+        });
+        
+        function loadGraphData() {
+            if (isLoading) return;
+            showLoading();
+            $('#graph-container').find('svg').remove();
+            
+            const limitPerType = $('#limit-slider').val();
+            const filterType = $('#filter-type').val();
+            
+            let apiUrl = `/api/graph-data?limit_per_type=${limitPerType}`;
+            if (filterType && filterType !== 'all') {
+                apiUrl += `&class_filter=${encodeURIComponent(filterType)}`;
+            }
+            
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                success: function(data) {
+                    setTimeout(function() {
+                        initializeGraph(data);
+                        hideLoading();
+                    }, 300);
+                },
+                error: function(xhr) {
+                    hideLoading();
+                    alert('Error loading graph data: ' + (xhr.responseJSON ? xhr.responseJSON.error : 'Unknown error'));
+                }
+            });
+        }
+        
+        function initializeGraph(data) {
+            const width = document.getElementById('graph-container').clientWidth;
+            const height = 700;
+            
+            const colorScale = d3.scaleOrdinal()
+                .domain(['class', 'Planet', 'Star', 'Moon', 'SpaceMission', 'Astronaut', 'SpaceAgency', 'Spacecraft', 
+                         'Asteroid', 'Comet', 'Exoplanet', 'Galaxy', 'BlackHole', 'Nebula'])
+                .range(['#4e79a7', '#f28e2c', '#e15759', '#76b7b2', '#59a14f', '#edc949', '#af7aa1', '#ff9da7',
+                        '#9c755f', '#bab0ab', '#d3b7d8', '#a0cbe8', '#1b1b1b', '#8cd17d']);
+            
+            svg = d3.select('#graph-container')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            g = svg.append('g');
+            
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 4])
+                .on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                });
+            
+            svg.call(zoom);
+            
+            svg.call(zoom.transform, d3.zoomIdentity.scale(0.8).translate(width / 4, height / 4));
+            
+            simulation = d3.forceSimulation(data.nodes)
+                .force('link', d3.forceLink(data.links).id(d => d.id).distance(100))
+                .force('charge', d3.forceManyBody().strength(-300).distanceMax(500))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(30))
+                .alphaDecay(0.028); 
+            
+            link = g.append('g')
+                .attr('class', 'links')
+                .selectAll('line')
+                .data(data.links)
+                .enter()
+                .append('line')
+                .attr('stroke', '#999')
+                .attr('stroke-opacity', 0.6)
+                .attr('stroke-width', 1);
+            
+            linkLabel = g.append('g')
+                .attr('class', 'link-labels')
+                .selectAll('text')
+                .data(data.links)
+                .enter()
+                .append('text')
+                .attr('font-size', 6)
+                .attr('fill', '#fff')
+                .attr('text-anchor', 'middle')
+                .text(d => d.label)
+                .style('display', showLabels ? 'block' : 'none');
+            
+            node = g.append('g')
+                .attr('class', 'nodes')
+                .selectAll('circle')
+                .data(data.nodes)
+                .enter()
+                .append('circle')
+                .attr('r', d => d.type === 'class' ? 10 : 7)
+                .attr('fill', d => colorScale(d.type))
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 1.5)
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+            
+            nodeLabel = g.append('g')
+                .attr('class', 'node-labels')
+                .selectAll('text')
+                .data(data.nodes)
+                .enter()
+                .append('text')
+                .attr('font-size', 8)
+                .attr('fill', "#fff")
+                .attr('text-anchor', 'middle')
+                .attr('dy', 15)
+                .text(d => d.label)
+                .style('display', showLabels ? 'block' : 'none');
+            
+            node.on('mouseover', function(event, d) {
+                const connectedNodeIds = new Set();
+                link.each(function(l) {
+                    if (l.source.id === d.id || l.target.id === d.id) {
+                        connectedNodeIds.add(l.source.id);
+                        connectedNodeIds.add(l.target.id);
+                        d3.select(this).attr('stroke', '#ff0').attr('stroke-width', 2);
+                    }
+                });
+                
+                node.each(function(n) {
+                    if (connectedNodeIds.has(n.id)) {
+                        d3.select(this).attr('stroke', '#ff0').attr('stroke-width', 2);
+                    }
+                });
+                
+                const nodeInfo = $('#node-info');
+                nodeInfo.html(`
+                    <strong>${d.label}</strong><br>
+                    <small>Type: ${d.type}</small>
+                `);
+                nodeInfo.css({
+                    display: 'block',
+                    left: (event.pageX + 10) + 'px',
+                    top: (event.pageY - 10) + 'px'
+                });
+            })
+            .on('mouseout', function() {
+                link.attr('stroke', '#999').attr('stroke-width', 1);
+                node.attr('stroke', '#fff').attr('stroke-width', 1.5);
+                $('#node-info').css('display', 'none');
+            })
+            .on('click', function(event, d) {
+                window.location.href = `/entity?uri=${encodeURIComponent(d.id)}`;
+            });
+            
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+                
+                linkLabel
+                    .attr('x', d => (d.source.x + d.target.x) / 2)
+                    .attr('y', d => (d.source.y + d.target.y) / 2);
+                
+                node
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+                
+                nodeLabel
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y);
+            });
+            
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+            
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+            
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+            
+            $('#filter-type').change(function() {
+                const selectedType = $(this).val();
+                
+                if (selectedType === 'all') {
+                    node.style('display', 'block');
+                    link.style('display', 'block');
+                    linkLabel.style('display', showLabels ? 'block' : 'none');
+                    nodeLabel.style('display', showLabels ? 'block' : 'none');
+                } else {
+                    node.style('display', d => d.type === selectedType ? 'block' : 'none');
+                    nodeLabel.style('display', d => d.type === selectedType && showLabels ? 'block' : 'none');
+                    
+                    link.style('display', d => {
+                        const sourceVisible = d.source.type === selectedType;
+                        const targetVisible = d.target.type === selectedType;
+                        return sourceVisible || targetVisible ? 'block' : 'none';
+                    });
+                    
+                    linkLabel.style('display', d => {
+                        const sourceVisible = d.source.type === selectedType;
+                        const targetVisible = d.target.type === selectedType;
+                        return (sourceVisible || targetVisible) && showLabels ? 'block' : 'none';
+                    });
+                }
+                
+                if (physicsEnabled) {
+                    simulation.alpha(0.3).restart();
+                }
+            });
+            
+            $('#search-node').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                
+                if (searchTerm === '') {
+                    node.style('display', 'block');
+                    link.style('display', 'block');
+                    linkLabel.style('display', showLabels ? 'block' : 'none');
+                    nodeLabel.style('display', showLabels ? 'block' : 'none');
+                } else {
+                    const matchingNodes = new Set();
+                    
+                    node.each(function(d) {
+                        const matches = d.label.toLowerCase().includes(searchTerm);
+                        d3.select(this).style('display', matches ? 'block' : 'none');
+                        
+                        if (matches) {
+                            matchingNodes.add(d.id);
+                        }
+                    });
+                    
+                    nodeLabel.style('display', d => d.label.toLowerCase().includes(searchTerm) && showLabels ? 'block' : 'none');
+                    
+                    link.style('display', d => {
+                        return matchingNodes.has(d.source.id) || matchingNodes.has(d.target.id) ? 'block' : 'none';
+                    });
+                    
+                    linkLabel.style('display', d => {
+                        return (matchingNodes.has(d.source.id) || matchingNodes.has(d.target.id)) && showLabels ? 'block' : 'none';
+                    });
+                }
+                
+                if (physicsEnabled) {
+                    simulation.alpha(0.3).restart();
+                }
+            });
+            
+            $('#layout-type').change(function() {
+                const layout = $(this).val();
+                
+                if (layout === 'force') {
+                    simulation
+                        .force('center', d3.forceCenter(width / 2, height / 2))
+                        .force('charge', d3.forceManyBody().strength(-300).distanceMax(500))
+                        .force('link', d3.forceLink(data.links).id(d => d.id).distance(100));
+                } else if (layout === 'circle') {
+                    simulation
+                        .force('center', null)
+                        .force('charge', d3.forceManyBody().strength(-50))
+                        .force('link', d3.forceLink(data.links).id(d => d.id).distance(50))
+                        .force('x', d3.forceX(width / 2).strength(0.1))
+                        .force('y', d3.forceY(height / 2).strength(0.1))
+                        .force('radial', d3.forceRadial(Math.min(width, height) / 3, width / 2, height / 2).strength(0.8));
+                } else if (layout === 'grid') {
+                    simulation
+                        .force('center', null)
+                        .force('charge', d3.forceManyBody().strength(-100))
+                        .force('link', d3.forceLink(data.links).id(d => d.id).distance(50))
+                        .force('x', d3.forceX(width / 2).strength(0.1))
+                        .force('y', d3.forceY(height / 2).strength(0.1))
+                        .force('grid', forceGrid(data.nodes, width, height));
+                }
+                
+                if (physicsEnabled) {
+                    simulation.alpha(1).restart();
+                }
+            });
+            
+            function forceGrid(nodes, width, height) {
+                const numCols = Math.ceil(Math.sqrt(nodes.length));
+                const numRows = Math.ceil(nodes.length / numCols);
+                const cellWidth = width / numCols;
+                const cellHeight = height / numRows;
+                
+                return function(alpha) {
+                    for (let i = 0; i < nodes.length; i++) {
+                        const col = i % numCols;
+                        const row = Math.floor(i / numCols);
+                        
+                        nodes[i].vx += (col * cellWidth + cellWidth / 2 - nodes[i].x) * alpha * 0.1;
+                        nodes[i].vy += (row * cellHeight + cellHeight / 2 - nodes[i].y) * alpha * 0.1;
+                    }
+                };
+            }
+        }
+    });
+</script>
+{% endblock %}
