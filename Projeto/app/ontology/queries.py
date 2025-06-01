@@ -402,13 +402,15 @@ class OntologyQueries:
     def get_relationships(self, instance_uri):
         if self.use_graphdb:
             relationships = []
+            seen_relationships = set()
+
             try:
                 outgoing_query = f"""
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX space: <http://www.semanticweb.org/ontologies/space#>
                 
-                SELECT ?property ?target ?targetLabel ?targetType WHERE {{
+                SELECT DISTINCT ?property ?target ?targetLabel ?targetType WHERE {{
                     <{instance_uri}> ?property ?target .
                     FILTER(isURI(?target) && ?property != rdf:type)
                     
@@ -436,22 +438,25 @@ class OntologyQueries:
                             else None
                         )
 
-                        relationships.append(
-                            {
-                                "direction": "outgoing",
-                                "type": rel_type,
-                                "target_uri": target_uri,
-                                "target_label": target_label,
-                                "target_type": target_type,
-                            }
-                        )
+                        rel_key = f"out:{rel_type}:{target_uri}"
+                        if rel_key not in seen_relationships:
+                            seen_relationships.add(rel_key)
+                            relationships.append(
+                                {
+                                    "direction": "outgoing",
+                                    "type": rel_type,
+                                    "target_uri": target_uri,
+                                    "target_label": target_label,
+                                    "target_type": target_type,
+                                }
+                            )
 
                 incoming_query = f"""
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX space: <http://www.semanticweb.org/ontologies/space#>
                 
-                SELECT ?property ?source ?sourceLabel ?sourceType WHERE {{
+                SELECT DISTINCT ?property ?source ?sourceLabel ?sourceType WHERE {{
                     ?source ?property <{instance_uri}> .
                     FILTER(?property != rdf:type)
                     
@@ -479,15 +484,18 @@ class OntologyQueries:
                             else None
                         )
 
-                        relationships.append(
-                            {
-                                "direction": "incoming",
-                                "type": rel_type,
-                                "source_uri": source_uri,
-                                "source_label": source_label,
-                                "source_type": source_type,
-                            }
-                        )
+                        rel_key = f"in:{rel_type}:{source_uri}"
+                        if rel_key not in seen_relationships:
+                            seen_relationships.add(rel_key)
+                            relationships.append(
+                                {
+                                    "direction": "incoming",
+                                    "type": rel_type,
+                                    "source_uri": source_uri,
+                                    "source_label": source_label,
+                                    "source_type": source_type,
+                                }
+                            )
 
             except Exception as e:
                 print(f"Error in get_relationships: {e}")
@@ -495,6 +503,8 @@ class OntologyQueries:
             return relationships
         else:
             relationships = []
+            seen_relationships = set()
+
             try:
                 instance_uri = (
                     URIRef(instance_uri)
@@ -513,15 +523,18 @@ class OntologyQueries:
                                 target_type = str(type_uri).split("#")[-1]
                                 break
 
-                        relationships.append(
-                            {
-                                "direction": "outgoing",
-                                "type": rel_type,
-                                "target_uri": str(o),
-                                "target_label": target_label,
-                                "target_type": target_type,
-                            }
-                        )
+                        rel_key = f"out:{rel_type}:{str(o)}"
+                        if rel_key not in seen_relationships:
+                            seen_relationships.add(rel_key)
+                            relationships.append(
+                                {
+                                    "direction": "outgoing",
+                                    "type": rel_type,
+                                    "target_uri": str(o),
+                                    "target_label": target_label,
+                                    "target_type": target_type,
+                                }
+                            )
 
                 for s, p, o in self.g.triples((None, None, instance_uri)):
                     if p != RDF.type:
@@ -534,15 +547,18 @@ class OntologyQueries:
                                 source_type = str(type_uri).split("#")[-1]
                                 break
 
-                        relationships.append(
-                            {
-                                "direction": "incoming",
-                                "type": rel_type,
-                                "source_uri": str(s),
-                                "source_label": source_label,
-                                "source_type": source_type,
-                            }
-                        )
+                        rel_key = f"in:{rel_type}:{str(s)}"
+                        if rel_key not in seen_relationships:
+                            seen_relationships.add(rel_key)
+                            relationships.append(
+                                {
+                                    "direction": "incoming",
+                                    "type": rel_type,
+                                    "source_uri": str(s),
+                                    "source_label": source_label,
+                                    "source_type": source_type,
+                                }
+                            )
             except Exception as e:
                 print(f"Error in get_relationships: {e}")
 
